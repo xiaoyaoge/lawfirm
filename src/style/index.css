@@ -1,0 +1,112 @@
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+}
+
+body {
+    background: #ebeef1;
+    margin: 0;
+    padding: 0;
+    font-family: 'Microsoft Yahei';
+}
+
+.index-cont {
+    width: 380px;
+    margin: 200px auto;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.index-cont .logo {
+    display: block;
+    width: 270px;
+    height: 86px;
+    margin: 20px auto;
+    background: url('img/logo.png') center top;
+    background-repeat: no-repeat;
+}
+
+.index-cont input {
+    display: block;
+    width: 100%;
+    height: 48px;
+    margin-top: 0px;
+    padding-left: 25px;
+    padding-right: 25px;
+    border: 1px solid #eaeaea;
+    font-size: 18px;
+    color: #444;
+    font-family: 'Microsoft Yahei';
+    border-radius: 0;
+    color: #444;
+}
+
+.index-cont input:first-of-type {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+.index-cont input:last-of-type {
+    margin-top: -1px;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+.index-cont input:focus {
+    border-color: #eaeaea;
+    outline: none;
+}
+
+.index-cont input::-webkit-input-placeholder {
+    font-size: 16px;
+}
+
+.index-cont .note {
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+    color: #aaa;
+    text-align: center;
+    font-size: 14px;
+}
+
+.index-cont .errors {
+    display: block;
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    font-size: 13px;
+    color: red;
+}
+
+.button {
+    width: 100%;
+    height: 42px;
+    margin-top: 15px;
+    line-height: 40px;
+    display: inline-block;
+    white-space: nowrap;
+    outline: none;
+    cursor: pointer;
+    white-space: nowrap;
+    -webkit-appearance: none;
+    padding: 0 16px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 14px;
+    background: #57a3f1;
+    border: 1px solid #57a3f1;
+    border-radius: 2px;
+    box-sizing: border-box;
+    color: #fff;
+    text-decoration: none;
+}
+
+.button:hover {
+    background-color: #4491e1;
+    opacity: 1;
+}
