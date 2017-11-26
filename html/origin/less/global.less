@@ -11,11 +11,19 @@ body {
 }
 
 /* 容器 */
+.article {
+    min-height: 500px;
+}
 .container {
     position: relative;
 
     width: 1180px;
     margin: 0 auto;
+}
+
+/* 颜色 */
+.c-red{
+    color: #b62a2a;
 }
 
 /* 标题 */
@@ -29,7 +37,7 @@ body {
 
     text-align: center;
 
-    color: #332227;
+    color: #413135;
     &:after {
         position: absolute;
         bottom: 0;
@@ -74,15 +82,25 @@ body {
     &.tel {
         width: 26px;
         height: 26px;
+        margin-right: 5px;
+
+        vertical-align: -7px;
 
         background-position: -50px 0;
-        vertical-align: -7px;
-        margin-right: 5px;
+    }
+    &.connect {
+        width: 4px;
+        height: 26px;
+        margin: 0 12px;
+
+        vertical-align: -8px;
+
+        background-position: -80px 0;
     }
 }
 
 /* 按钮 */
-.more-btn {
+a.more-btn,.more-btn {
     display: block;
     width: 188px;
     height: 46px;
@@ -96,6 +114,11 @@ body {
     color: #6c6466;
     border: 1px solid #e8cece;
     border-radius: 50px;
+    background-color: #fbfcfc;
+    &:hover {
+        color: #6c6466;
+        background-color: #faf9f9;
+    }
 }
 
 /* 函件搜索 */
@@ -120,8 +143,8 @@ body {
 
         border: 1px solid #e8cece;
         border-right-width: 0;
-        border-top-left-radius: 1px;
-        border-bottom-left-radius: 1px;
+        border-top-left-radius: 2px;
+        border-bottom-left-radius: 2px;
     }
     button {
         display: inline-block;
@@ -135,7 +158,35 @@ body {
         vertical-align: -1px;
 
         color: #fff;
-        border-radius: 1px;
+        border-top-right-radius: 2px;
+        border-bottom-right-radius: 2px;
         background-color: #b62a2a;
+        cursor: pointer;
+        &:hover{
+            background-color: #dd2a2a;
+        }
+    }
+}
+
+/* 路径 */
+.path-bar {
+    font-size: 14px;
+    line-height: 26px;
+
+    color: #b8b5b4;
+    background-color: #f5f5f5;
+    .container {
+        padding: 18px 9px;
+        box-sizing: border-box;
+    }
+    a {
+        color: #b8b5b4;
+        &:hover,
+        &:active {
+            color: #b8b5b4;
+        }
+    }
+    .current {
+        color: #b62a2a;
     }
 }
