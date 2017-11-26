@@ -6,7 +6,7 @@ const WebpackMd5Hash = require('webpack-md5-hash')
 const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin')
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
 const url = require('url')
-const publicPath = ''
+const publicPath = '/'
 
 module.exports = (options = {}) => ({
     entry: {
@@ -42,7 +42,7 @@ module.exports = (options = {}) => ({
                 loader: 'url-loader',
                 options: {
                     limit: 1000,
-                    name: 'css/img/[name].[hash:8].[ext]'
+                    name: 'style/img/[name].[hash:8].[ext]'
                 }
             }]
         }, {
@@ -51,7 +51,7 @@ module.exports = (options = {}) => ({
                 loader: 'url-loader',
                 options: {
                     limit: 10000,
-                    name: 'css/font/[name].[hash:8].[ext]'
+                    name: 'style/font/[name].[hash:8].[ext]'
                 }
             }]
         }]
@@ -80,7 +80,7 @@ module.exports = (options = {}) => ({
             //必须通过上面的 CommonsChunkPlugin 的依赖关系自动添加 js，css 等
             chunksSortMode: 'dependency'
         }),
-        new ExtractTextPlugin({ filename: '[name].[contenthash:8].css' }),
+        new ExtractTextPlugin({ filename: 'style/css/[name].[contenthash:8].css' }),
         new webpack.optimize.CommonsChunkPlugin({
             names: ['vendor', 'manifest']
         }),

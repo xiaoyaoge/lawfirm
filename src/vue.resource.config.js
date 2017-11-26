@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import VueResource from 'vue-resource'
-import { Message } from 'element-ui'
+//import { Message } from 'element-ui'
 
-Vue.component(Message.name, Message);
+//Vue.component(Message.name, Message);
 
 let count = 0;
 
@@ -13,7 +13,7 @@ Vue.use(VueResource);
 Vue.http.options.root = 'http://admin.fafashe.com/cgi';
 //Vue.http.options.root = 'http://admin.fafashe.twoeyes.cn/cgi';
 //Vue.http.options.root = 'http://localhost:8080/';
- 
+
 
 Vue.http.interceptors.push((req, next) => {
     count++;
@@ -35,11 +35,11 @@ Vue.http.aop = function(res, cb) {
                 //todo 
                 sessionStorage.removeItem('user');
                 window.location.href = '#/login';
-                Message.warning(res.body.errMsg);
+                //Message.warning(res.body.errMsg);
                 return;
                 // 异常
             default:
-                Message.warning(res.body.errmsg || '服务器忙');
+                //Message.warning(res.body.errmsg || '服务器忙');
                 return;
         }
     }
