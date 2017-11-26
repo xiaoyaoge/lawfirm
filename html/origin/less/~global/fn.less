@@ -1,0 +1,71 @@
+/* 清理浮动 */
+.fn-clear:after,
+.clear:after {
+    display: block;
+    visibility: hidden;
+    height: 0;
+    clear: both;
+
+    font-size: 0;
+
+    content: " ";
+}
+.fn-clear,
+.clear {
+    zoom: 1; /* for IE6 IE7 */
+}
+
+/* 隐藏, 通常用来与 JS 配合 */
+body .fn-hide,
+body .hide {
+    display: none;
+}
+
+/* 设置内联, 减少浮动带来的bug */
+.fn-left,
+.fn-right {
+    display: inline;
+}
+.fn-left {
+    float: left;
+}
+.fn-right {
+    float: right;
+}
+.fn-out-body {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+}
+/* 单行文字溢出时出现省略号，需设定宽度 */
+.fn-text-overflow {
+    overflow: hidden;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.fn-vhidden {
+    visibility: hidden;
+}
+
+.fn-rmb {
+    margin-right: 3px;
+
+    font-family: arial;
+    font-style: normal;
+}
+
+.text-right {
+    text-align: right;
+}
+.text-center {
+    text-align: center;
+}
+
+.fn-pr {
+    position: relative;
+}
+.fn-st {
+    font-family: "宋体";
+}

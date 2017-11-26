@@ -1,0 +1,141 @@
+@import "./~global/reset.less";
+@import "./~global/head.less";
+@import "./~global/foot.less";
+@import "./~global/fn.less";
+@import "./~global/news_list.less";
+
+/* 最小宽度 */
+body {
+    min-width: 1200px;
+    margin: 0 auto;
+}
+
+/* 容器 */
+.container {
+    position: relative;
+
+    width: 1180px;
+    margin: 0 auto;
+}
+
+/* 标题 */
+.common-title {
+    position: relative;
+
+    padding-top: 50px;
+    padding-bottom: 40px;
+
+    font-size: 24px;
+
+    text-align: center;
+
+    color: #332227;
+    &:after {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+
+        width: 1180px;
+        height: 1px;
+        margin-left: -590px;
+
+        content: "";
+
+        background: url("./../img/global/title_line.png") no-repeat top center;
+    }
+}
+
+/* 图标 */
+.icon {
+    display: inline-block;
+
+    vertical-align: middle;
+
+    background-image: url("./../img/global/icon.png");
+    background-repeat: no-repeat;
+    &.news {
+        position: relative;
+        top: -6px;
+
+        width: 26px;
+        height: 26px;
+        margin-right: 12px;
+
+        background-position: 0 0;
+    }
+    &.arrow {
+        width: 12px;
+        height: 26px;
+        margin-top: -1px;
+        margin-left: 7px;
+
+        background-position: -30px 0;
+    }
+    &.tel {
+        width: 26px;
+        height: 26px;
+
+        background-position: -50px 0;
+        vertical-align: -7px;
+        margin-right: 5px;
+    }
+}
+
+/* 按钮 */
+.more-btn {
+    display: block;
+    width: 188px;
+    height: 46px;
+    margin: 0 auto;
+
+    font-size: 16px;
+    line-height: 46px;
+
+    text-align: center;
+
+    color: #6c6466;
+    border: 1px solid #e8cece;
+    border-radius: 50px;
+}
+
+/* 函件搜索 */
+.search-form {
+    font-size: 0;
+    label {
+        margin-right: 31px;
+
+        font-size: 18px;
+        line-height: 46px;
+
+        color: #332227;
+    }
+    input {
+        display: inline-block;
+        width: 284px;
+        height: 44px;
+        padding: 0 19px;
+
+        font-size: 14px;
+        line-height: 44px;
+
+        border: 1px solid #e8cece;
+        border-right-width: 0;
+        border-top-left-radius: 1px;
+        border-bottom-left-radius: 1px;
+    }
+    button {
+        display: inline-block;
+        width: 132px;
+        height: 46px;
+
+        font-size: 16px;
+        line-height: 46px;
+
+        text-align: center;
+        vertical-align: -1px;
+
+        color: #fff;
+        border-radius: 1px;
+        background-color: #b62a2a;
+    }
+}
