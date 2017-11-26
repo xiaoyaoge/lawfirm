@@ -1,43 +1,12 @@
 <template>
-    <div class="h100s">
-        <nav class="bk-horz-nav bk-horz-nav-min">
-            <div class="bk-nav-logo fl">
-                {{sysName}}
-            </div>
-            <ul class="ffs-breadcrumb">
-                <li class="fir">
-                    <router-link :to="{pat:'#/'}">首页</router-link>
-                </li>
-                <li class="sec">
-                    <a v-if="$route.path.split('/')[2]" @click="$router.push(parentUrls)">{{parentUrlName}}</a>
-                    <router-link v-else :to="{path:$route.path}">
-                        {{$route.name}}
-                    </router-link>
-                </li>
-                <!-- 二级页面要添加 首页的  -->
-                <li v-show="$route.path.split('/')[2]" class="last">
-                    <a> {{$route.name}} </a>
-                </li>
-            </ul>
-            <div class="bk-nav-user fr">
-                <el-dropdown class="bk-nav-user fr" trigger="hover">
-                    <span class="el-dropdown-link userinfo-inner mr5"> {{sysUserName}}</span>
-                    <img src="https://magicbox.bkclouds.cc/static_api/v3/components_pro/horizontal_nav1/images/avatar.png">
-                    <el-dropdown-menu slot="dropdown">
-                        <el-dropdown-item @click.native="logout">退出登录</el-dropdown-item>
-                    </el-dropdown-menu>
-                </el-dropdown>
-            </div>
-        </nav>
-        <div class="bk-layout bk-layout-has-sidebar" style="height:calc(100% - 60px)">
-            <div class="bk-sidebar" :class="collapsed?'slide-close':'slide-open'">
-                <div class="slide-switch" @click="collapse">
-                    <i class="icon bk-icon icon-dedent f14"></i>
-                </div>
-                <div class="nav-list">
-                    <div class="nav-list">
-                        <ul ref="menuCollapsed">
-                            <template v-for="(item,index) in $router.options.routes" v-if="!item.hidden">
+    <div>
+        <header class="header">
+            <div class="fn-clear container">
+                <a href="/" class="logo">
+                    <img src="../style/img/logo.png" width="201" height="48" align="middle" alt="">
+                </a>
+                <div class="top-nav">
+                    <!-- <template v-for="(item,index) in $router.options.routes" v-if="!item.hidden">
                                 <li v-if="roleFun(item.role,sysUserAvatar)" :class="item.paths.indexOf($route.path.split('/')[1])>-1? 'open': ''">
                                     <template v-if="!item.leaf">
                                         <a @click="showMenu(index,true)">
@@ -55,109 +24,95 @@
                                         </a>
                                     </template>
                                 </li>
-                            </template>
-                        </ul>
+                            </template> -->
+                    <template v-for="(item,index) in $router.options.routes" v-if="item.navmuen">
+                        <template>
+                            <a v-for="child in item.children" @click="$router.push(child.path);" :class="$route.path==child.path?'active':''">{{child.name}}</a>
+                        </template>
+                    </template>
+                    <!-- <a href="#/main" class="active">首页</a>
+                    <a href="#/news" class="">仁良新闻</a>
+                    <a href="#/lawyer">专业律师</a>
+                    <a href="#/search">函件查询</a>
+                    <a href="#/about">关于我们</a> -->
+                </div>
+                <div class="fn-right top-right-info">
+                    <div class="tel-info fn-left">
+                        <i class="icon tel"></i>
+                        <span>0700-5241245</span>
+                        <span class="line"></span>
+                    </div>
+                    <div class="login-wrap fn-right">
+                        <a href="###">登录</a>
+                        <a href="###">注册</a>
                     </div>
                 </div>
-                <div class="copyright">
-                    <p>Copyright &copy; 2012-2017 法法社.</p>
-                    <span>All Rights Reserved.</span>
+            </div>
+        </header>
+        <article>
+            <transition name="fade" mode="out-in">
+                <router-view></router-view>
+            </transition>
+        </article>
+        <footer class="footer">
+            <div class="container">
+                <div class="fn-clear">
+                    <div class="fn-left">
+                        <ul class="foot-sort clear">
+                            <li>
+                                <dl>
+                                    <dt>关于我们</dt>
+                                    <dd>
+                                        <a href="###" target="_blank">概览</a>
+                                        <a href="###" target="_blank">工作地点</a>
+                                        <a href="###" target="_blank">团队介绍</a>
+                                        <a href="###" target="_blank">团队法律声明介绍</a>
+                                    </dd>
+                                </dl>
+                            </li>
+                            <li>
+                                <dl>
+                                    <dt>友情链接</dt>
+                                    <dd>
+                                        <a href="###" target="_blank">法法社</a>
+                                        <a href="###" target="_blank">分期乐</a>
+                                        <a href="###" target="_blank">目目学院</a>
+                                    </dd>
+                                </dl>
+                            </li>
+                            <li>
+                                <dl>
+                                    <dt>最近新闻</dt>
+                                    <dd>
+                                        <a href="###" target="_blank">仁良业绩</a>
+                                        <a href="###" target="_blank">业内资讯</a>
+                                    </dd>
+                                </dl>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="fn-right">
+                        <img src="../style/img/qr.png" width="148" height="148">
+                    </div>
                 </div>
             </div>
-            <div class="page-content">
-                <transition name="fade" mode="out-in">
-                    <router-view></router-view>
-                </transition>
+            <div class="copyright">
+                © Renliang 2016 京ICP备06002628号-1
             </div>
-        </div>
+        </footer>
     </div>
 </template>
 <script>
+import '../style/global.css'
 export default {
     data() {
         return {
-            sysName: '法法社CRM客户管理系统',
-            parentUrlName: '',
-            parentUrls: '',
-            collapsed: true,
-            sysUserName: 'admin',
-            sysUserAvatar: '',
-            form: {
-                name: '',
-                region: '',
-                date1: '',
-                date2: '',
-                delivery: false,
-                type: [],
-                resource: '',
-                desc: ''
-            },
-            initFlag: false
         }
     },
     methods: {
-        collapse: function() { //折叠导航栏
-            this.collapsed = !this.collapsed;
-            var box = this.$refs.menuCollapsed.getElementsByClassName('flex-subnavs');
-            for (var i = 0; i < box.length; i++) {
-                box[i].style.display = 'none';
-            }
-        },
-        onSubmit() {},
-        handleopen() {
-            //console.log('handleopen');
-        },
-        handleclose() {
-            //console.log('handleclose');
-        },
-        handleselect: function(a, b) {},
-        //退出登录
-        logout: function() {
-            var _this = this;
-            this.$confirm('确认退出吗?', '提示', {
-                //type: 'warning'
-            }).then(() => {
-                this.$http.ajaxPost({
-                    url: 'logout',
-                    params: {}
-                }, (res) => {
-                    this.$http.aop(res, () => {
-                        sessionStorage.removeItem('user');
-                        this.$router.push({
-                            path: '/login'
-                        });
-
-                    });
-
-                });
-            }).catch(() => {
-
-            });
-        },
-        showMenu(i, status) {
-            var box = this.$refs.menuCollapsed.getElementsByClassName('submenu-hook-' + i)[0];
-            var dis = box.style.display;
-            box.style.display = (dis == 'none' ? 'block' : 'none');
-        },
-        roleFun(role, userRole) {
-            let flag = true;
-            if (role === 0 || (role !== 0 && role === userRole)) { //对应权限
-                flag = true;
-            } else {
-                flag = false;
-            }
-            return flag
-
-        }
     },
     mounted() {
-        var user = sessionStorage.getItem('user');
-        if (user) { 
-            user = JSON.parse(user);
-            this.sysUserName = user.name || '';
-            this.sysUserAvatar = user.role || 0; 
-        }
-
+        console.log(this.$router.options.routes);
     }
 }
 </script>

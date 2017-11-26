@@ -18,7 +18,7 @@ module.exports = (options = {}) => ({
         filename: options.dev ? '[name].js' : '[name].[chunkhash:8].js',
         chunkFilename: '[id].[chunkhash:8].js',
         publicPath: options.dev ? '/assets/' : publicPath
-    }, 
+    },
     module: {
         rules: [{
             test: /\.vue$/,
@@ -27,10 +27,15 @@ module.exports = (options = {}) => ({
             test: /\.js$/,
             use: ['babel-loader'],
             exclude: /node_modules/
+        },{
+           test: /\.css$/,
+            loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use:['css-loader','postcss-loader'] })
         }, {
-            test: /\.css$/,
-            use: ['style-loader', 'css-loader', 'postcss-loader'],
-
+            test: /\.scss$/,
+            loader: "style!css!sass"
+        }, {
+            test: /\.less$/,
+            loader: "style!css!less"
         }, {
             test: /\.(png|jpg|jpeg|gif)(\?.+)?$/,
             use: [{
@@ -63,7 +68,7 @@ module.exports = (options = {}) => ({
             ),
             threshold: 10240,
             minRatio: 0.8
-        }), 
+        }),
         new HtmlWebpackPlugin({
             template: 'src/index.html',
             inject: true, // 自动注入
@@ -78,7 +83,7 @@ module.exports = (options = {}) => ({
         new ExtractTextPlugin({ filename: 'css/[name].[contenthash:8].css' }), 
         new webpack.optimize.CommonsChunkPlugin({
             names: ['vendor', 'manifest']
-        }), 
+        }),
         new InlineManifestWebpackPlugin({
             name: 'webpackManifest'
         })
@@ -90,7 +95,7 @@ module.exports = (options = {}) => ({
     },
     devServer: {
         host: '127.0.0.1',
-        port: 8021,
+        port: 8022,
         proxy: {
             '/api/': {
                 target: '127.0.0.1',
