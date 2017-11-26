@@ -75,12 +75,12 @@ module.exports = (options = {}) => ({
             minify: {
                 removeComments: true, //去注释
                 collapseWhitespace: true, //压缩空格
-                removeAttributeQuotes: true //去除属性引用 
+                removeAttributeQuotes: true //去除属性引用
             },
             //必须通过上面的 CommonsChunkPlugin 的依赖关系自动添加 js，css 等
             chunksSortMode: 'dependency'
         }),
-        new ExtractTextPlugin({ filename: 'css/[name].[contenthash:8].css' }), 
+        new ExtractTextPlugin({ filename: '[name].[contenthash:8].css' }),
         new webpack.optimize.CommonsChunkPlugin({
             names: ['vendor', 'manifest']
         }),
