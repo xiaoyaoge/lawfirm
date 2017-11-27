@@ -1,0 +1,123 @@
+.layer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 99;
+
+    background-color: rgba(15, 10, 10, .8);
+}
+
+.common-modal {
+    position: absolute;
+    top: 160px;
+    left: 50%;
+
+    width: 538px;
+    padding-top: 60px;
+    margin-left: -269px;
+
+    border-radius: 2px;
+    background-color: #fff;
+    overflow: hidden;
+    .close {
+        position: absolute;
+        top: 6px;
+        right: 6px;
+
+        cursor: pointer;
+    }
+    .modal-title {
+        font-size: 18px;
+        font-weight: bold;
+        line-height: 50px;
+
+        text-align: center;
+
+        color: #b62a2a;
+        .firm-icon {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            margin-top: -4px;
+
+            vertical-align: middle;
+
+            background-image: url("./../img/global/firm_icon.png");
+            background-repeat: no-repeat;
+        }
+    }
+    .modal-content{
+    	padding: 0 110px;
+    }
+    .modal-form {
+        padding-top: 32px;
+        .form-item {
+            height: 62px;
+
+            font-size: 14px;
+            line-height: 62px;
+
+            border-bottom: 1px solid #e4e4e4;
+
+            input::-webkit-input-placeholder {
+                color: #cac8c9;
+            }
+            input:-ms-input-placeholder {
+                // IE10+
+                color: #cac8c9;
+            }
+            input:-moz-placeholder {
+                // Firefox4-18
+                color: #cac8c9;
+            }
+            input::-moz-placeholder {
+                // Firefox19+
+                color: #cac8c9;
+            }
+        }
+        .form-link-wrap {
+            font-size: 14px;
+            line-height: 22px;
+            padding: 25px 0;
+
+            color: #6c6466;
+            a {
+                color: #6c6466;
+                &:hover,
+                &:active {
+                    color: #6c6466;
+                }
+            }
+        }
+    }
+
+    .modal-btn {
+        width: 318px;
+        height: 48px;
+        margin-bottom: 50px;
+
+        font-size: 16px;
+        line-height: 48px;
+
+        text-align: center;
+
+        color: #fff;
+        border-radius: 2px;
+        background-color: #b62a2a;
+        cursor: pointer;
+    }
+
+    .modal-bottom {
+        height: 69px;
+
+        font-size: 14px;
+        line-height: 69px;
+
+        text-align: center;
+
+        color: #6c6466;
+        background-color: #f0f0f0;
+    }
+}
