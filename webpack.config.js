@@ -29,7 +29,7 @@ module.exports = (options = {}) => ({
             exclude: /node_modules/
         },{
            test: /\.css$/,
-            loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use:['css-loader','postcss-loader'] })
+            loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use:['css-loader','postcss-loader']})
         }, {
             test: /\.scss$/,
             loader: "style!css!sass"
@@ -41,7 +41,7 @@ module.exports = (options = {}) => ({
             use: [{
                 loader: 'url-loader',
                 options: {
-                    limit: 1000,
+                    limit: 5000,
                     name: 'style/img/[name].[hash:8].[ext]'
                 }
             }]

@@ -32,7 +32,7 @@ Vue.http.aop = function(res, cb) {
                 break;
                 // 未登录
             case 10000:
-                //todo 
+                //todo
                 sessionStorage.removeItem('user');
                 window.location.href = '#/login';
                 //Message.warning(res.body.errMsg);
