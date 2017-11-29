@@ -42,6 +42,7 @@
 </template>
 <script>
 import '../../style/news.css';
+import moment from 'moment'
 export default {
     data() {
         return {
@@ -68,6 +69,21 @@ export default {
         }
     },
     methods: {
+        dateTime(val,type){
+            return moment(val).format(type);
+        },
+        getLawyerList(){
+            this.$http.ajaxPost({
+                url: 'lawyer',
+                params: {}
+            }, (res) => {
+                this.$http.aop(res, () => {
+                    //res.body.data.role 
+
+                });
+
+            });
+        }
     },
     mounted() {
     }

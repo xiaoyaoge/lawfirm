@@ -6,20 +6,7 @@
 			    <swiper-slide v-for="(item,index) in bannerList" style="background: #1e1209;">
 			    	<div class="container"><a :href="item.jumpUrl"><img :src="item.imageUrl"></a></div>
 			    </swiper-slide>
-			    <!-- <swiper-slide style="background: #7d4a24;">
-			    	<div class="container">Slide 2</div>
-			    </swiper-slide>
-			    <swiper-slide style="background: #666;">
-			    	<div class="container">Slide 3</div>
-			    </swiper-slide>
-			    <swiper-slide style="background: #999;">
-			    	<div class="container">Slide 4</div>
-			    </swiper-slide>  -->
-			    <!-- Optional controls -->
 			    <div class="swiper-pagination"  slot="pagination"></div>
-			    <!-- <div class="swiper-button-prev" slot="button-prev"></div> -->
-			    <!-- <div class="swiper-button-next" slot="button-next"></div> -->
-			    <!-- <div class="swiper-scrollbar"   slot="scrollbar"></div> -->
 			</swiper>
 		</div>
 		<div class="news-wrap">
@@ -31,10 +18,10 @@
 							<div class="news-top clear">
 								<div class="fn-left">
 									<i class="icon news"></i>
-									<span class="date">11月6日</span>
+									<span class="date">{{dateTime(item.createTime,'MM月DD日')}}</span>
 								</div>
 								<div class="fn-right">
-									<span class="year">2017</span>
+									<span class="year">{{dateTime(item.createTime,'YYYY')}}</span>
 								</div>
 							</div>
 							<dl>
@@ -49,53 +36,7 @@
 								</div>
 							</div>
 						</router-link>
-					</li>
-					<!-- <li>
-						<a href="###">
-							<div class="news-top clear">
-								<div class="fn-left">
-									<i class="icon news"></i>
-									<span class="date">11月6日</span>
-								</div>
-								<div class="fn-right">
-									<span class="year">2017</span>
-								</div>
-							</div>
-							<dl>
-								<dt>赞助2017年北京大学法学院法律人求职发展交流会</dt>
-								<dd>2017年11月2日晚，由君合等律师事务所联合赞助的北京大学法学院法律人求职发展交流会在北京大学凯原楼举办，30余家国内外律所及企业，以及来自北京大学、清华大学、中国人民大学、中国政法大学等高校的法学院学生齐聚一堂。君合合伙人李茂昶、张宗珍、郑宇、孙小佳律师出席了此次活动。交流会嘉宾合影（前排左五至左八位依次为君合合伙人郑宇律师、张宗珍律师、李茂昶律师、孙小佳律师）李茂昶律师进行了开场致辞，与母校
-								</dd>
-							</dl>
-							<div class="news-bottom clear">
-								<div class="fn-right">
-									查看详情<i class="icon arrow"></i>
-								</div>
-							</div>
-						</a>
-					</li>
-					<li>
-						<a href="###">
-							<div class="news-top clear">
-								<div class="fn-left">
-									<i class="icon news"></i>
-									<span class="date">11月6日</span>
-								</div>
-								<div class="fn-right">
-									<span class="year">2017</span>
-								</div>
-							</div>
-							<dl>
-								<dt>赞助2017年北京大学法学院法律人求职发展交流会</dt>
-								<dd>2017年11月2日晚，由君合等律师事务所联合赞助的北京大学法学院法律人求职发展交流会在北京大学凯原楼举办，30余家国内外律所及企业，以及来自北京大学、清华大学、中国人民大学、中国政法大学等高校的法学院学生齐聚一堂。君合合伙人李茂昶、张宗珍、郑宇、孙小佳律师出席了此次活动。交流会嘉宾合影（前排左五至左八位依次为君合合伙人郑宇律师、张宗珍律师、李茂昶律师、孙小佳律师）李茂昶律师进行了开场致辞，与母校
-								</dd>
-							</dl>
-							<div class="news-bottom clear">
-								<div class="fn-right">
-									查看详情<i class="icon arrow"></i>
-								</div>
-							</div>
-						</a>
-					</li> -->
+					</li> 
 				</ul>
 				<router-link :to="{path:'/news'}" class="more-btn" title="查看更多">查看更多</router-link>
 				<!-- <a href="###" class="more-btn">查看更多</a> -->
@@ -119,79 +60,19 @@
 							<dt>
 								<img src="../../style/img/1.jpg" alt="" height="336" align="top">
 							</dt>
-							<dd>郭梦祺</dd>
-						</dl>
-					</li>
-					<li>
-						<dl>
-							<dt>
-								<img src="../../style/img/2.jpg" alt="" height="336" align="top">
-							</dt>
-							<dd>郭梦祺</dd>
-						</dl>
-					</li>
-					<li>
-						<dl>
-							<dt>
-								<img src="../../style/img/3.jpg" alt="" height="336" align="top">
-							</dt>
-							<dd>郭梦祺</dd>
-						</dl>
-					</li>
-					<li>
-						<dl>
-							<dt>
-								<img src="../../style/img/4.jpg" alt="" height="336" align="top">
-							</dt>
-							<dd>郭梦祺</dd>
-						</dl>
-					</li>
-					<li>
-						<dl>
-							<dt>
-								<img src="../../style/img/5.jpg" alt="" height="336" align="top">
-							</dt>
-							<dd>郭梦祺</dd>
-						</dl>
-					</li>
-					<li>
-						<dl>
-							<dt>
-								<img src="../../style/img/6.jpg" alt="" height="336" align="top">
-							</dt>
-							<dd>郭梦祺</dd>
-						</dl>
-					</li>
-					<li>
-						<dl>
-							<dt>
-								<img src="../../style/img/7.jpg" alt="" height="336" align="top">
-							</dt>
-							<dd>郭梦祺</dd>
+							<dd>{{item.lName}}</dd>
 						</dl>
 					</li>
 				</ul>
-				<a href="###" class="more-btn">查看所有</a>
+				<router-link :to="{path:'/lawyer'}" class="more-btn" title="查看更多">查看更多</router-link>
 			</div>
 		</div>
 		<div class="co-wrap">
 			<div class="container">
 				<h1 class="common-title">合作组织</h1>
 				<ul class="co-list clear">
-					<li>
-						<img src="../../style/img/fql_logo.png" alt="" width="121" height="75" align="middle">
-					</li>
-					<li>
-						<img src="../../style/img/fql_logo.png" alt="" width="121" height="75" align="middle">
-					</li>
-					<li>
-						<img src="../../style/img/fql_logo.png" alt="" width="121" height="75" align="middle">
-					</li>
-					<li>
-						<img src="../../style/img/fql_logo.png" alt="" width="121" height="75" align="middle">
-					</li>
-					<li>
-						<img src="../../style/img/fql_logo.png" alt="" width="121" height="75" align="middle">
+					<li v-for="(item,index) in coList">
+						<img src="../../style/img/fql_logo.png" :alt="item.title" width="121" height="75" align="middle">
 					</li>
 				</ul>
 			</div>
@@ -202,6 +83,7 @@
 import '../../style/index.css';
 import 'swiper/dist/css/swiper.css'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
+import moment from 'moment'
 export default {
     data() {
     	return {
@@ -210,17 +92,28 @@ export default {
     			{imageUrl:'3333',jumpUrl:'44444',title:'3331',id:'2'}
     		],
     		nwesList:[
-    			{newsId:'1',title:'赞助2017年北京大学法学院法律人求职发展交流会',createTime:'',brief:
+    			{newsId:'1',title:'赞助2017年北京大学法学院法律人求职发展交流会',createTime:1508998756000,brief:
     		'2017年11月2日晚，由君合等律师事务所联合赞助的北京大学法学院法律人求职发展交流会在北京大学凯原楼举办，30余家国内外律所及企业，以及来自北京大学、清华大学、中国人民大学、中国政法大学等高校的法学院学生齐聚一堂。君合合伙人李茂昶、张宗珍、郑宇、孙小佳律师出席了此次活动。交流会嘉宾合影（前排左五至左八位依次为君合合伙人郑宇律师、张宗珍律师、李茂昶律师、孙小佳律师）李茂昶律师进行了开场致辞，与母校' },
-    			{newsId:'2',title:'赞助2017年北京大学法学院法律人求职发展交流会',createTime:'',brief:
+    			{newsId:'2',title:'赞助2017年北京大学法学院法律人求职发展交流会',createTime:1508998756000,brief:
     		'2017年11月2日晚，由君合等律师事务所联合赞助的北京大学法学院法律人求职发展交流会在北京大学凯原楼举办，30余家国内外律所及企业，以及来自北京大学、清华大学、中国人民大学、中国政法大学等高校的法学院学生齐聚一堂。君合合伙人李茂昶、张宗珍、郑宇、孙小佳律师出席了此次活动。交流会嘉宾合影（前排左五至左八位依次为君合合伙人郑宇律师、张宗珍律师、李茂昶律师、孙小佳律师）李茂昶律师进行了开场致辞，与母校' },
-    			{newsId:'3',title:'赞助2017年北京大学法学院法律人求职发展交流会',createTime:'',brief:
+    			{newsId:'3',title:'赞助2017年北京大学法学院法律人求职发展交流会',createTime:1508998756000,brief:
     		'2017年11月2日晚，由君合等律师事务所联合赞助的北京大学法学院法律人求职发展交流会在北京大学凯原楼举办，30余家国内外律所及企业，以及来自北京大学、清华大学、中国人民大学、中国政法大学等高校的法学院学生齐聚一堂。君合合伙人李茂昶、张宗珍、郑宇、孙小佳律师出席了此次活动。交流会嘉宾合影（前排左五至左八位依次为君合合伙人郑宇律师、张宗珍律师、李茂昶律师、孙小佳律师）李茂昶律师进行了开场致辞，与母校' }
     		],
     		lawyerList:[
-    			{introduction:'',lName:'郭梦祺',title:'',lid:''},
-    			{introduction:'',lName:'郭梦祺',title:'',lid:''},
-    			{introduction:'',lName:'郭梦祺',title:'',lid:''},
+    			{introduction:'',lName:'郭梦祺',imageUrl:'1.jpg',title:'',id:'1'},
+    			{introduction:'',lName:'郭梦祺',imageUrl:'2.jpg',title:'',id:'2'},
+    			{introduction:'',lName:'郭梦祺',imageUrl:'3.jpg',title:'',id:'3'},
+    			{introduction:'',lName:'郭梦祺',imageUrl:'4.jpg',title:'',id:'4'},
+    			{introduction:'',lName:'郭梦祺',imageUrl:'5.jpg',title:'',id:'5'},
+    			{introduction:'',lName:'郭梦祺',imageUrl:'6.jpg',title:'',id:'6'},
+    			{introduction:'',lName:'郭梦祺',imageUrl:'7.jpg',title:'',id:'7'} 
+    		],
+    		coList:[
+    			{linkUrl:'12334',lName:'郭梦祺',imageUrl:'1.jpg',title:'',id:'1'},
+    			{linkUrl:'12334',lName:'郭梦祺',imageUrl:'2.jpg',title:'',id:'2'},
+    			{linkUrl:'12334',lName:'郭梦祺',imageUrl:'3.jpg',title:'',id:'3'},
+    			{linkUrl:'12334',lName:'郭梦祺',imageUrl:'4.jpg',title:'',id:'4'},
+    			{linkUrl:'12334',lName:'郭梦祺',imageUrl:'5.jpg',title:'',id:'5'}
     		],
 	        swiperOption: {
 	        	direction : 'horizontal',
@@ -243,7 +136,7 @@ export default {
 	    }
     },components: {
     	swiper,
-    	swiperSlide
+    	swiperSlide, 
   	},
     computed: {
       	swiper() {
@@ -251,8 +144,54 @@ export default {
       	}
     },
     methods: {
+    	dateTime(val,type){
+    		return moment(val).format(type);
+    	},
+    	getBanner(){
+    		this.$http.ajaxPost({
+	            url: 'login',
+	            params: {data:'11',mane:'aaaa'}
+	        }, (res) => {
+	            this.$http.aop(res, () => {
+	                 
+	            }); 
+	        });
+
+    	},
+    	getNews(){
+    		this.$http.ajaxPost({
+	            url: 'login',
+	            params: {data:'11',mane:'aaaa'}
+	        }, (res) => {
+	            this.$http.aop(res, () => {
+	                //sessionStorage.setItem('user', JSON.stringify(res.body.data));
+	                // if (res.body.data.role == 99) {
+	                //     this.$router.push({
+	                //         path: '/lawFirm'
+	                //     });
+	                // } else {
+	                //     this.$router.push({
+	                //         path: '/enterprise'
+	                //     });
+	                // } 
+	            }); 
+	        });
+
+    	},
+    	getLawyer(){
+    		this.$http.ajaxPost({
+	            url: 'login',
+	            params: {data:'11',mane:'aaaa'}
+	        }, (res) => {
+	            this.$http.aop(res, () => {
+	                 
+	            }); 
+	        });
+    	},
     },
     mounted() {
+    	 
+    	
     }
 }
 </script>

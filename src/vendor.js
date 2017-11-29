@@ -1,2 +1,2 @@
 import Vue from 'vue'
-//import ElementUI from 'element-ui'
+import ElementUI from 'element-ui'
