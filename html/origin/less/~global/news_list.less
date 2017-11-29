@@ -4,6 +4,7 @@
         margin-left: -60px;
         li {
             position: relative;
+            top: 0;
 
             float: left;
             width: 353px;
@@ -11,8 +12,13 @@
             margin-bottom: 60px;
             margin-left: 60px;
 
+            -webkit-transition: all .2s linear; /* Safari and Chrome */
+               -moz-transition: all .2s linear; /* Firefox 4 */
+                 -o-transition: all .2s linear; /* Opera */
+                    transition: all .2s linear;
+
             background-color: #fafafa;
-            box-shadow: 0px 0px 8px 2px rgba(30, 18, 9, 0.04);
+            box-shadow: 0 0 4px 1px rgba(30,18,9,.04);
             .news-top {
                 padding: 31px 22px 30px 20px;
 
@@ -46,6 +52,17 @@
                 padding: 23px 22px 16px 20px;
 
                 color: #6c6466;
+            }
+            &:hover {
+                top: -5px;
+
+                box-shadow: 0 0 4px 1px rgba(30,18,9,.08);
+                .news-bottom {
+                    color: #b62a2a;
+                }
+                .icon.arrow {
+                    background-position: -30px -30px;
+                }
             }
         }
     }

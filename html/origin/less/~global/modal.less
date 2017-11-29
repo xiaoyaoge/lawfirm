@@ -6,6 +6,9 @@
     left: 0;
     z-index: 99;
 
+    overflow-x: hidden;
+    overflow-y: auto;
+
     background-color: rgba(15, 10, 10, .8);
     .close {
         position: absolute;
@@ -17,30 +20,34 @@
 }
 
 /* 公用loading */
-.loading-wrap{
-	width: 200px;
-	height: 180px;
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	margin-left: -100px;
-	margin-top: -90px;
-	background-color: #fff;
-	text-align: center;
-	padding-top: 36px;
-	box-sizing: border-box;
-	border-radius: 4px;
-	dt{
-		width: 68px;
-		height: 58px;
-		display: inline-block;
-		margin-bottom: 24px;
-	}
-	dd{
-		font-size: 18px;
-		color: #b62a2a;
-		font-weight: bold;
-	}
+.loading-wrap {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    width: 200px;
+    height: 180px;
+    padding-top: 36px;
+    margin-top: -90px;
+    margin-left: -100px;
+    box-sizing: border-box;
+
+    text-align: center;
+
+    border-radius: 4px;
+    background-color: #fff;
+    dt {
+        display: inline-block;
+        width: 68px;
+        height: 58px;
+        margin-bottom: 24px;
+    }
+    dd {
+        font-size: 18px;
+        font-weight: bold;
+
+        color: #b62a2a;
+    }
 }
 
 /* 公用弹窗 */
@@ -56,6 +63,13 @@
 
     border-radius: 4px;
     background-color: #fff;
+    &.letter-modal {
+        width: 886px;
+        margin-left: -443px;
+        .modal-content {
+            padding: 0 80px 50px;
+        }
+    }
     .modal-title {
         font-size: 18px;
         font-weight: bold;
@@ -78,61 +92,63 @@
         }
     }
     .modal-content {
-        padding: 24px 110px 0;
+        padding: 24px 110px 50px;
+        &.query-content {
+            padding: 0 69px 50px;
+        }
+        &.options-content {
+            padding: 16px 58px 50px;
+        }
     }
-    .modal-text{
-    	font-size: 18px;
-    	color: #6c6466;
-    	line-height: 32px;
-    	text-align: center;
-    	margin-top: 24px;
-    	margin-bottom: 30px;
+    .modal-text {
+        margin-top: 24px;
+        margin-bottom: 30px;
+
+        font-size: 18px;
+        line-height: 32px;
+
+        text-align: center;
+
+        color: #6c6466;
     }
-    .warn-tip{
-    	font-size: 14px;
-    	color: #d65d49;
-    	line-height: 34px;
-    	background-color: #ffe2de;
-    	border: 1px solid #d65d49;
-    	border-radius: 2px;
-    	padding: 0 8px;
+    .warn-tip {
+        padding: 0 8px;
+
+        font-size: 14px;
+        line-height: 34px;
+
+        color: #d65d49;
+        border: 1px solid #d65d49;
+        border-radius: 2px;
+        background-color: #ffe2de;
     }
     .modal-form {
-    	padding-top: 8px;
+        padding-top: 8px;
         .form-item {
             font-size: 14px;
-            .input-item{
-            	height: 62px;
-            	line-height: 62px;
-	            padding-left: 31px;
-	            position: relative;
-            	border-bottom: 1px solid #e4e4e4;
-        	}
-            input {
-                width: 100%;
-            }
+
             input::-webkit-input-placeholder {
                 color: #cac8c9;
             }
-			input:-ms-input-placeholder {
-				// IE10+
-				color: #cac8c9;
-			}
-			input:-moz-placeholder {
-			    // Firefox4-18
-			    color: #cac8c9;
-			}
-		    input::-moz-placeholder {
-		        // Firefox19+
-		        color: #cac8c9;
-		    }
-	        .icon {
-	            position: absolute;
-	            top: 50%;
-	            left: 0;
+            input:-ms-input-placeholder {
+            // IE10+
+            color: #cac8c9;
+            }
+            input:-moz-placeholder {
+            // Firefox4-18
+            color: #cac8c9;
+            }
+            input::-moz-placeholder {
+                // Firefox19+
+                color: #cac8c9;
+            }
+            .icon {
+                position: absolute;
+                top: 50%;
+                left: 0;
 
-	            margin-top: -13px;
-	        }
+                margin-top: -13px;
+            }
             .sms-btn {
                 position: absolute;
                 top: 50%;
@@ -155,52 +171,70 @@
                     background-color: #faf9f9;
                 }
             }
-            .error-tip{
-            	font-size: 12px;
-            	color: #d65d49;
-            	line-height: 24px;
-            	padding: 0 14px;
-            	background-color: #ffe2de;
-            	display: none;
-            	border-bottom-left-radius: 4px;
-            	border-bottom-right-radius: 4px;
+            .error-tip {
+                display: none;
+                padding: 0 14px;
+
+                font-size: 12px;
+                line-height: 24px;
+
+                color: #d65d49;
+                border-bottom-right-radius: 4px;
+                border-bottom-left-radius: 4px;
+                background-color: #ffe2de;
             }
-            &.error{
-	            .input-item{
-	            	color: #d65d49;
-	            	border-bottom: 1px solid #d65d49;
-	            }
-            	input{
-            		color: #d65d49;
-            	}
-            	.error-tip{
-            		display: block;
-            	}
-            	.user{
-        			background-position: -120px -30px;
-            	}
-            	.pwd{
-        			background-position: -150px -30px;
-            	}
-            	.code{
-        			background-position: -180px -30px;
-            	}
+            .input-item {
+                position: relative;
+
+                height: 62px;
+                padding-left: 31px;
+
+                line-height: 62px;
+
+                border-bottom: 1px solid #e4e4e4;
             }
-            &.correct{
-            	.input-item{
-            		&:after{
-            			content: '';
-            			background-image: url("./../img/global/icon.png");
-    					background-repeat: no-repeat;
-    					width: 26px;
-				        height: 26px;
-				        background-position: -50px -30px;
-				        position: absolute;
-				        right: 18px;
-				        top: 50%;
-				        margin-top: -13px;
-            		}
-            	}
+            input {
+                width: 100%;
+            }
+            &.error {
+                .input-item {
+                    color: #d65d49;
+                    border-bottom: 1px solid #d65d49;
+                }
+                input {
+                    color: #d65d49;
+                }
+                .error-tip {
+                    display: block;
+                }
+                .user {
+                    background-position: -120px -30px;
+                }
+                .pwd {
+                    background-position: -150px -30px;
+                }
+                .code {
+                    background-position: -180px -30px;
+                }
+            }
+            &.correct {
+                .input-item {
+                    &:after {
+                        position: absolute;
+                        top: 50%;
+                        right: 18px;
+
+                        width: 26px;
+                        height: 26px;
+                        margin-top: -13px;
+
+                        content: "";
+
+                        background-image: url("./../img/global/icon.png");
+                        background-repeat: no-repeat;
+                        background-position: -50px -30px;
+                    }
+                }
             }
         }
         .form-link-wrap {
@@ -218,67 +252,96 @@
                 }
             }
         }
-        .form-tip-wrap{
-        	font-size: 14px;
-        	color: #aaaaaa;
-        	line-height: 24px;
-        	margin-bottom: 10px;
-        	text-align: center;
-        	margin-top: 45px;
+        .form-tip-wrap {
+            margin-top: 45px;
+            margin-bottom: 10px;
+
+            font-size: 14px;
+            line-height: 24px;
+
+            text-align: center;
+
+            color: #aaa;
         }
     }
-    .verify-item{
-    	font-size: 12px;
-    	color: #aaaaaa;
-    	line-height: 36px;
-    	height: 36px;
-    	text-align: center;
-    	background-color: #f0f0f0;
-    	position: relative;
-    	border-radius: 4px;
-    	margin-top: 25px;
-    	.process-tag{
-    		background-color: #fff;
-    		border: 1px solid #c7c4c6;
-    		width: 46px;
-    		text-align: center;
-    		height: 34px;
-    		position: absolute;
-    		left: 0;
-    		top: 0;
-    		z-index: 9;
-    		border-radius: 3px;
-    		&:after{
-    			content: '';
-				background-image: url("./../img/global/icon.png");
-				background-repeat: no-repeat;
-				width: 12px;
-		        height: 14px;
-		        background-position: -30px -36px;
-		        display: inline-block;
-		        position: absolute;
-		        left: 50%;
-		        margin-left: -6px;
-		        top: 50%;
-		        margin-top: -7px;
-    		}
-    	}
+    .verify-item {
+        position: relative;
+
+        height: 36px;
+        margin-top: 25px;
+
+        font-size: 12px;
+        line-height: 36px;
+
+        text-align: center;
+
+        color: #aaa;
+        border-radius: 4px;
+        background-color: #f0f0f0;
+        .process-tag {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 9;
+
+            width: 46px;
+            height: 34px;
+
+            text-align: center;
+
+            border: 1px solid #c7c4c6;
+            border-radius: 3px;
+            background-color: #fff;
+            &:after {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+
+                display: inline-block;
+                width: 12px;
+                height: 14px;
+                margin-top: -7px;
+                margin-left: -6px;
+
+                content: "";
+
+                background-image: url("./../img/global/icon.png");
+                background-repeat: no-repeat;
+                background-position: -78px -36px;
+            }
+        }
     }
 
     .modal-bottom {
-        height: 69px;
-
         font-size: 14px;
-        line-height: 69px;
 
         color: #6c6466;
         background-color: #f0f0f0;
-        .operate-content{
-        	padding: 0 110px;
-        	a{
-        		display: inline-block;
-        		line-height: 26px;
-        	}
+        .bottom-text,
+        .operate-content {
+            height: 69px;
+
+            line-height: 69px;
+        }
+        .operate-content {
+            padding: 0 110px;
+            a {
+                display: inline-block;
+
+                line-height: 26px;
+            }
+        }
+        .btn-content {
+            padding: 30px 0;
+
+            font-size: 0;
+            line-height: normal;
+
+            text-align: center;
+            .btn {
+                display: inline-block;
+                margin: 0 15px;
+            }
         }
     }
 }
@@ -287,7 +350,6 @@
 .modal-btn {
     width: 318px;
     height: 48px;
-    margin-bottom: 50px;
 
     font-size: 16px;
     line-height: 48px;
@@ -304,34 +366,171 @@
 }
 
 /* 协议弹窗 */
-.protocol-modal{
-	width: 944px;
-	background-color: #fff;
-	position: absolute;
-	top: 165px;
-	left: 50%;
-	padding: 60px 34px;
-	box-sizing: border-box;
-	margin-left: -472px;
-	text-align: center;
-	.modal-title{
-		font-size: 24px;
-		color: #332227;
-		text-align: center;
-		font-weight: bold;
-		margin-bottom: 20px;
-	}
-	.modal-text{
-		height: 345px;
-		overflow-y: auto;
-		overflow-x: hidden;
-		font-size: 14px;
-		color: #6c6466;
-		line-height: 26px;
-		text-align: left;
-		margin-bottom: 45px;
-		h4{
-			margin-bottom: 30px;
-		}
-	}
+.protocol-modal {
+    position: absolute;
+    top: 165px;
+    left: 50%;
+
+    width: 944px;
+    padding: 60px 34px;
+    margin-left: -472px;
+    box-sizing: border-box;
+
+    text-align: center;
+
+    background-color: #fff;
+    .modal-title {
+        margin-bottom: 20px;
+
+        font-size: 24px;
+        font-weight: bold;
+
+        text-align: center;
+
+        color: #332227;
+    }
+    .modal-text {
+        height: 345px;
+        margin-bottom: 45px;
+        overflow-x: hidden;
+        overflow-y: auto;
+
+        font-size: 14px;
+        line-height: 26px;
+
+        text-align: left;
+
+        color: #6c6466;
+        h4 {
+            margin-bottom: 30px;
+        }
+    }
+}
+
+/* 函件查询 */
+.query-content {
+    text-align: center;
+    .query-info {
+        margin-bottom: 12px;
+
+        font-size: 14px;
+
+        text-align: center;
+
+        color: #6c6466;
+    }
+    .query-form {
+        padding-bottom: 50px;
+        dl {
+            dt {
+                height: 42px;
+
+                font-size: 14px;
+                line-height: 42px;
+
+                text-align: center;
+
+                color: #b62a2a;
+            }
+            dd {
+                position: relative;
+                input {
+                    width: 100%;
+                    height: 38px;
+                    box-sizing: border-box;
+
+                    font-size: 14px;
+                    line-height: 38px;
+
+                    text-align: center;
+
+                    border: 1px solid #e8cece;
+                    border-radius: 3px;
+                }
+                .id-wrap {
+                    height: 38px;
+
+                    font-size: 0;
+
+                    text-align: center;
+                    span {
+                        display: inline-block;
+                        width: 21px;
+                        height: 36px;
+                        overflow: hidden;
+
+                        font-size: 24px;
+
+                        color: #666;
+                        border-style: solid;
+                        border-color: #e8cece;
+                        border-top-width: 1px;
+                        border-right-width: 1px;
+                        border-bottom-width: 1px;
+                        border-left-width: 0;
+                        &:first-child {
+                            border-left-width: 1px;
+                        }
+                        &.on {
+                            border-color: #b62a2a;
+                        }
+                    }
+                }
+                .credit-input {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+
+                    opacity: 0;
+                    border: 0;
+                }
+            }
+        }
+    }
+    .query-tip {
+        margin-top: 16px;
+
+        font-weight: bold;
+
+        color: #6c6466;
+    }
+}
+
+/* 带按钮的提示框 */
+.options-content {
+    .big-icon {
+        margin-bottom: 26px;
+    }
+    .options-title {
+        margin-bottom: 40px;
+
+        font-size: 18px;
+        font-weight: bold;
+
+        text-align: center;
+
+        color: #b62a2a;
+    }
+    .options-text {
+        font-size: 16px;
+        line-height: 26px;
+
+        color: #6c6466;
+    }
+    dl {
+        text-align: center;
+        dt {
+            margin-bottom: 12px;
+
+            font-size: 18px;
+            font-weight: bold;
+
+            color: #b62a2a;
+        }
+        dd {
+            font-size: 14px;
+
+            color: #6c6466;
+        }
+    }
 }
