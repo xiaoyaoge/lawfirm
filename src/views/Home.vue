@@ -19,9 +19,8 @@
                     <div v-if="loginType==''" class="login-wrap fn-right">
                         <a @click="loginShow()">登录</a>
                         <a @click="registerShow()">注册</a>
-
                     </div>
-                    <div v-else class="login-wrap fn-right"> 
+                    <div v-else class="login-wrap fn-right">
                         <span><i class="icon user"></i>{{loginType}}</span>
                         <a @click="logout">退出登录</a>
                     </div>
@@ -99,9 +98,9 @@
                             </div>
                         </div>
                         <!-- 验证滑块 -->
-                        <div class="verify-item hide">
+                        <div class="verify-item" id="dragbox">
                             <span>按住滑块，拖至最右侧</span>
-                            <div class="process-tag" style="left: 10%;"></div>
+                            <div class="process-tag" id="dragbtn" style="left: 0;"></div>
                         </div>
                         <div class="form-link-wrap fn-clear">
                             <a href="###" class="fn-right">忘记密码？</a>
@@ -116,7 +115,7 @@
         </div>
         <!-- 注册/修改密码弹窗 -->
         <div class="layer" v-show="registerHieden">
-            <div class="common-modal" >
+            <div class="common-modal">
                 <i class="icon close" @click="registerHieden=false;"></i>
                 <h3 class="modal-title"><i class="firm-icon"></i>注册仁良</h3>
                 <div class="modal-content">
@@ -139,7 +138,7 @@
                         <div class="form-item" :class="vPassword('password',false)?'':'error'">
                             <div class="input-item">
                                 <i class="icon pwd"></i>
-                                <input type="password" v-model="registerForm.password" placeholder="密码长度6-20位" maxlength="20"/>
+                                <input type="password" v-model="registerForm.password" placeholder="密码长度6-20位" maxlength="20" />
                             </div>
                             <p class="error-tip">密码长度6-20位</p>
                         </div>
@@ -160,7 +159,7 @@
                         <div class="form-tip-wrap">
                             <p>点击[注册]，即代表你同意<a href="###">《仁良注册协议》</a></p>
                         </div>
-                        <button class="modal-btn"  @click="register()">注册</button>
+                        <button class="modal-btn" @click="register()">注册</button>
                     </div>
                 </div>
                 <div class="modal-bottom">
@@ -169,12 +168,12 @@
                     </div>
                 </div>
             </div>
-        </div> 
+        </div>
     </div>
 </template>
 <script>
 import '../style/global.css';
-import validate from '../validate' 
+import validate from '../validate'
 
 export default {
     data() {
@@ -182,31 +181,32 @@ export default {
             loginType: '',
             loginHieden: false,
             registerHieden: false,
-            form:{
-                mobile:'',
-                password:''
+            verifyCode: false,
+            form: {
+                mobile: '',
+                password: ''
 
             },
-            registerForm:{
-                mobile:'',
-                password:'',
-                password1:'',
-                verifyCode:''
+            registerForm: {
+                mobile: '',
+                password: '',
+                password1: '',
+                verifyCode: ''
             },
-            inputMobile:false,
-            msgError:'',
+            inputMobile: false,
+            msgError: '',
             animation: '',
             //paddingTop: `paddingTop: ${(window.innerHeight - 440) / 2}px`,
             types: ['zoom', 'fade', 'flip', 'door', 'rotate', 'slideUp', 'slideDown', 'slideLeft', 'slideRight']
         }
     },
     methods: {
-        switchForm(val,type){  
-            let isOk = true; 
+        switchForm(val, type) {
+            let isOk = true;
             let text = '';
             switch (val) {
                 case 'mobile':
-                    if (!validate.checkPhoneNum(this.registerForm.mobile)) { 
+                    if (!validate.checkPhoneNum(this.registerForm.mobile)) {
                         isOk = false;
                         text = '手机号码不正确或不能为空';
                     }
@@ -218,7 +218,7 @@ export default {
                     }
                     break;
                 case 'password1':
-                    if(this.registerForm.password !== this.registerForm.password1){ 
+                    if (this.registerForm.password !== this.registerForm.password1) {
                         isOk = false;
                         text = '两次输入的密码不匹配，请重新输入';
                     }
@@ -229,82 +229,77 @@ export default {
                         text = "请输入正确的验证码";
                     }
                     break;
-            } 
-            if(type){
-                return { isOk:isOk , text: text }
-            }else{
-               return isOk;  
             }
-            
-        },
-        vMobile(val,type){  
-            let flag = false;
-            if(this.registerForm.mobile){
-               flag =  this.switchForm(val,type);
-            }else{
-                flag = true;
+            if (type) {
+                return { isOk: isOk, text: text }
+            } else {
+                return isOk;
             }
-             
-            return flag;
         },
-        vPassword(val,type){ 
-            
+        vMobile(val, type) {
             let flag = false;
-            if(this.registerForm.password){
-               flag =  this.switchForm(val,type);
-            }else{
-                flag = true;
-            } 
-             
-            return flag;
-        },
-        vPasswordS(val,type){  
-            let flag = false;
-            if(this.registerForm.password1){
-               flag =  this.switchForm(val,type);
-            }else{
-                flag = true;
-            } 
-            return flag;
-        },
-        vVerifyCode(val,type){  
-            let flag = false;
-            if(this.registerForm.verifyCode){
-               flag =  this.switchForm(val,type);
-            }else{
+            if (this.registerForm.mobile) {
+                flag = this.switchForm(val, type);
+            } else {
                 flag = true;
             }
-
             return flag;
         },
-        getCode(mobile){
+        vPassword(val, type) {
+            let flag = false;
+            if (this.registerForm.password) {
+                flag = this.switchForm(val, type);
+            } else {
+                flag = true;
+            }
+            return flag;
+        },
+        vPasswordS(val, type) {
+            let flag = false;
+            if (this.registerForm.password1) {
+                flag = this.switchForm(val, type);
+            } else {
+                flag = true;
+            }
+            return flag;
+        },
+        vVerifyCode(val, type) {
+            let flag = false;
+            if (this.registerForm.verifyCode) {
+                flag = this.switchForm(val, type);
+            } else {
+                flag = true;
+            }
+            return flag;
+        },
+        getCode(mobile) {
             this.$http.ajaxPost({
                 url: 'member/sendVerifyCode',
-                params: { mobile: this.registerForm.mobile , scene: 1} //scene： 1/注册 ，2/找回密码 ，3/登录
+                params: { mobile: this.registerForm.mobile, scene: 1 } //scene： 1/注册 ，2/找回密码 ，3/登录
             }, (res) => {
                 this.$http.aop(res, () => {
                     this.$message({
                         message: '验证码发送成功',
                         type: 'success'
                     });
-                }); 
+                });
             });
         },
-        checkLoginForm(data){
+        checkLoginForm(data) {
             let isOk = true;
             let text = '';
             let type = true;
             Object.keys(data).forEach((val) => {
-                if(isOk){
+                if (isOk) {
                     switch (val) {
                         case 'mobile':
-                            if (!validate.checkPhoneNum(this.form.mobile)) { 
+                            if (!validate.checkPhoneNum(this.form.mobile)) {
                                 isOk = false;
                                 text = '手机号码不正确或不能为空';
                             }
                             break;
                         case 'password':
-                            if (this.form.password === '') { 
+                            if (this.form.password === '') {
                                 isOk = false;
                                 text = '密码不能为空';
                             }
@@ -312,80 +307,88 @@ export default {
                         default:
                             break;
                     }
-                } 
+                }
             });
 
-            if(!isOk){ 
+            if (!isOk) {
                 this.$message.error(text);
                 return false;
             }
             return true;
         },
-        login(){
-            if(this.checkLoginForm(this.form)){
+        login() {
+
+            if (this.checkLoginForm(this.form)) {
+                if (!this.verifyCode) {
+                    this.$message({
+                        message: '请滑动验证码 ！',
+                        type: 'warning'
+                    });
+                    alert(this.verifyCode);
+                    return;
+                }
                 this.$http.ajaxPost({
                     url: 'member/login',
-                    params: { mobile: this.form.mobile , password: this.form.password }
+                    params: { mobile: this.form.mobile, password: this.form.password }
                 }, (res) => {
                     this.$http.aop(res, () => {
                         this.loginHieden = false;
                         this.loginType = this.form.mobile;
-                        sessionStorage.setItem('user', JSON.stringify({uid:res.body.data , mobile: this.form.mobile}));
+                        sessionStorage.setItem('user', JSON.stringify({ uid: res.body.data, mobile: this.form.mobile }));
                         this.$message({
                             message: '登陆成功',
                             type: 'success'
                         });
-                    }); 
+                    });
                 });
             }
         },
-        checkForm(data){
+        checkForm(data) {
             let isOk = true;
             let text = '';
             let type = true;
             Object.keys(data).forEach((val) => {
                 switch (isOk) {
                     case true:
-                        let obj = this.switchForm(val,type);
+                        let obj = this.switchForm(val, type);
                         isOk = obj.isOk;
-                        text = obj.text; 
+                        text = obj.text;
                         break;
                     default:
                         break;
-                } 
+                }
             });
 
-            if(!isOk){ 
-                this.msgError = text; 
+            if (!isOk) {
+                this.msgError = text;
                 return false;
             }
             return true;
         },
-        register(){
-            if(this.checkForm(this.registerForm)){
-               this.$http.ajaxPost({
+        register() {
+            if (this.checkForm(this.registerForm)) {
+                this.$http.ajaxPost({
                     url: 'member/register',
-                    params: { mobile: this.registerForm.mobile , password: this.registerForm.password , verifyCode: this.registerForm.verifyCode }
+                    params: { mobile: this.registerForm.mobile, password: this.registerForm.password, verifyCode: this.registerForm.verifyCode }
                 }, (res) => {
-                    this.$http.aop(res, () => { 
-                        this.msgError ='';
+                    this.$http.aop(res, () => {
+                        this.msgError = '';
                         this.$message({
                             message: '注册成功',
                             type: 'success'
                         });
-                    }); 
-                });  
+                    });
+                });
             }
-            
         },
-        loginShow(){
+        loginShow() {
             this.loginHieden = true;
         },
-        registerShow(){
+        registerShow() {
             this.registerHieden = true;
 
         },
-        logout(){
+        logout() {
             this.$http.ajaxPost({
                 url: 'member/logout',
                 params: {}
@@ -400,20 +403,63 @@ export default {
                 });
 
             });
+        },
+        drag() {
+            let _this = this;
+            var oDiv = document.getElementById('dragbtn');
+            var oDiv2 = document.getElementById('dragbox');
+            var disX = 0;
+            var disY = 0;
+            oDiv.onmousedown = function(ev) {
+                var oEvent = ev || event;
+                disX = oEvent.clientX - oDiv.offsetLeft;
+                disY = oEvent.clientY - oDiv.offsetTop;
+                console.log(oDiv2.offsetWidth, oDiv.offsetWidth)
+                document.onmousemove = function(ev) {
+                    var oEvent = ev || event;
+                    var l = oEvent.clientX - disX;
+                    var t = oEvent.clientY - disY;
+                    if (l < 50) {
+                        l = 0;
+                    } else if (l > oDiv2.offsetWidth - oDiv.offsetWidth) {
+                        l = oDiv2.offsetWidth - oDiv.offsetWidth;
+                    }
+                    if (l > 260) {
+                        l = 270;
+                    }
+                    if (t < 50) {
+                        t = 0;
+                    } else if (t > oDiv2.offsetHeight - oDiv.offsetHeight) {
+                        t = oDiv2.offsetHeight - oDiv.offsetHeight;
+                    }
+                    oDiv.style.left = l + 'px';
+                    oDiv.style.top = t + 'px';
+                    if (l == 270) {
+                        _this.verifyCode = true;
+                    } else {
+                        _this.verifyCode = false;
+                    }
+                };
+                document.onmouseup = function() {
+                    document.onmousemove = null;
+                    document.onmouseup = null;
+                };
+                return false;
+            };
         }
     },
-    mounted() { 
+    mounted() {
+        this.drag();
         let user = sessionStorage.getItem('user');
         console.log(user);
-        if (user) { 
+        if (user) {
             user = JSON.parse(user);
-            this.loginType = user.mobile || ''; 
+            this.loginType = user.mobile || '';
         }
         console.log(this.loginType);
         console.log(this.$router.options.routes);
     }
 }
- 
 </script>
 <style>
 </style>
