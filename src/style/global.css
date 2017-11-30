@@ -438,7 +438,44 @@ body .hide {
     bottom: 0;
     left: 0;
     z-index: 99;
+    overflow-x: hidden;
+    overflow-y: auto;
     background-color: rgba(15, 10, 10, 0.8)
+}
+
+.layer .close {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    cursor: pointer
+}
+
+.loading-wrap {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200px;
+    height: 180px;
+    padding-top: 36px;
+    margin-top: -90px;
+    margin-left: -100px;
+    box-sizing: border-box;
+    text-align: center;
+    border-radius: 4px;
+    background-color: #fff
+}
+
+.loading-wrap dt {
+    display: inline-block;
+    width: 68px;
+    height: 58px;
+    margin-bottom: 24px
+}
+
+.loading-wrap dd {
+    font-size: 18px;
+    font-weight: bold;
+    color: #b62a2a
 }
 
 .common-modal {
@@ -448,16 +485,18 @@ body .hide {
     width: 538px;
     padding-top: 60px;
     margin-left: -269px;
-    border-radius: 2px;
-    background-color: #fff;
-    overflow: hidden
+    overflow: hidden;
+    border-radius: 4px;
+    background-color: #fff
 }
 
-.common-modal .close {
-    position: absolute;
-    top: 6px;
-    right: 6px;
-    cursor: pointer
+.common-modal.letter-modal {
+    width: 886px;
+    margin-left: -443px
+}
+
+.common-modal.letter-modal .modal-content {
+    padding: 0 80px 50px
 }
 
 .common-modal .modal-title {
@@ -473,24 +512,49 @@ body .hide {
     width: 50px;
     height: 50px;
     margin-top: -4px;
+    margin-right: 8px;
     vertical-align: middle;
     background-image: url("img/firm_icon.png");
     background-repeat: no-repeat
 }
 
 .common-modal .modal-content {
-    padding: 0 110px
+    padding: 24px 110px 50px
+}
+
+.common-modal .modal-content.query-content {
+    padding: 0 69px 50px
+}
+
+.common-modal .modal-content.options-content {
+    padding: 16px 58px 50px
+}
+
+.common-modal .modal-text {
+    margin-top: 24px;
+    margin-bottom: 30px;
+    font-size: 18px;
+    line-height: 32px;
+    text-align: center;
+    color: #6c6466
+}
+
+.common-modal .warn-tip {
+    padding: 0 8px;
+    font-size: 14px;
+    line-height: 34px;
+    color: #d65d49;
+    border: 1px solid #d65d49;
+    border-radius: 2px;
+    background-color: #ffe2de
 }
 
 .common-modal .modal-form {
-    padding-top: 32px
+    padding-top: 8px
 }
 
 .common-modal .modal-form .form-item {
-    height: 62px;
-    font-size: 14px;
-    line-height: 62px;
-    border-bottom: 1px solid #e4e4e4
+    font-size: 14px
 }
 
 .common-modal .modal-form .form-item input::-webkit-input-placeholder {
@@ -509,10 +573,98 @@ body .hide {
     color: #cac8c9
 }
 
+.common-modal .modal-form .form-item .icon {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    margin-top: -13px
+}
+
+.common-modal .modal-form .form-item .sms-btn {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    display: inline-block;
+    height: 30px;
+    padding: 0 13px;
+    margin-top: -15px;
+    font-size: 14px;
+    line-height: 30px;
+    cursor: pointer;
+    color: #aaa;
+    border: 1px solid #eaeaea;
+    border-radius: 2px
+}
+
+.common-modal .modal-form .form-item .sms-btn:hover {
+    background-color: #faf9f9
+}
+
+.common-modal .modal-form .form-item .error-tip {
+    display: none;
+    padding: 0 14px;
+    font-size: 12px;
+    line-height: 24px;
+    color: #d65d49;
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+    background-color: #ffe2de
+}
+
+.common-modal .modal-form .form-item .input-item {
+    position: relative;
+    height: 62px;
+    padding-left: 31px;
+    line-height: 62px;
+    border-bottom: 1px solid #e4e4e4
+}
+
+.common-modal .modal-form .form-item input {
+    width: 100%
+}
+
+.common-modal .modal-form .form-item.error .input-item {
+    color: #d65d49;
+    border-bottom: 1px solid #d65d49
+}
+
+.common-modal .modal-form .form-item.error input {
+    color: #d65d49
+}
+
+.common-modal .modal-form .form-item.error .error-tip {
+    display: block
+}
+
+.common-modal .modal-form .form-item.error .user {
+    background-position: -120px -30px
+}
+
+.common-modal .modal-form .form-item.error .pwd {
+    background-position: -150px -30px
+}
+
+.common-modal .modal-form .form-item.error .code {
+    background-position: -180px -30px
+}
+
+.common-modal .modal-form .form-item.correct .input-item:after {
+    position: absolute;
+    top: 50%;
+    right: 18px;
+    width: 26px;
+    height: 26px;
+    margin-top: -13px;
+    content: "";
+    background-image: url("img/icon.png");
+    background-repeat: no-repeat;
+    background-position: -50px -30px
+}
+
 .common-modal .modal-form .form-link-wrap {
+    padding: 25px 0;
     font-size: 14px;
     line-height: 22px;
-    padding: 25px 0;
     color: #6c6466
 }
 
@@ -525,26 +677,252 @@ body .hide {
     color: #6c6466
 }
 
-.common-modal .modal-btn {
-    width: 318px;
-    height: 48px;
-    margin-bottom: 50px;
-    font-size: 16px;
-    line-height: 48px;
+.common-modal .modal-form .form-tip-wrap {
+    margin-top: 45px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    line-height: 24px;
     text-align: center;
-    color: #fff;
-    border-radius: 2px;
-    background-color: #b62a2a;
-    cursor: pointer
+    color: #aaa
+}
+
+.common-modal .verify-item {
+    position: relative;
+    height: 36px;
+    margin-top: 25px;
+    font-size: 12px;
+    line-height: 36px;
+    text-align: center;
+    color: #aaa;
+    border-radius: 4px;
+    background-color: #f0f0f0
+}
+
+.common-modal .verify-item .process-tag {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 9;
+    width: 46px;
+    height: 34px;
+    text-align: center;
+    border: 1px solid #c7c4c6;
+    border-radius: 3px;
+    background-color: #fff
+}
+
+.common-modal .verify-item .process-tag:after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: inline-block;
+    width: 12px;
+    height: 14px;
+    margin-top: -7px;
+    margin-left: -6px;
+    content: "";
+    background-image: url("img/icon.png");
+    background-repeat: no-repeat;
+    background-position: -78px -36px
 }
 
 .common-modal .modal-bottom {
-    height: 69px;
     font-size: 14px;
-    line-height: 69px;
-    text-align: center;
     color: #6c6466;
     background-color: #f0f0f0
+}
+
+.common-modal .modal-bottom .bottom-text,
+.common-modal .modal-bottom .operate-content {
+    height: 69px;
+    line-height: 69px
+}
+
+.common-modal .modal-bottom .operate-content {
+    padding: 0 110px
+}
+
+.common-modal .modal-bottom .operate-content a {
+    display: inline-block;
+    line-height: 26px
+}
+
+.common-modal .modal-bottom .btn-content {
+    padding: 30px 0;
+    font-size: 0;
+    line-height: normal;
+    text-align: center
+}
+
+.common-modal .modal-bottom .btn-content .btn {
+    display: inline-block;
+    margin: 0 15px
+}
+
+.modal-btn {
+    width: 318px;
+    height: 48px;
+    font-size: 16px;
+    line-height: 48px;
+    cursor: pointer;
+    text-align: center;
+    color: #fff;
+    border-radius: 4px;
+    background-color: #b62a2a
+}
+
+.modal-btn:hover {
+    background-color: #dd2a2a
+}
+
+.protocol-modal {
+    position: absolute;
+    top: 165px;
+    left: 50%;
+    width: 944px;
+    padding: 60px 34px;
+    margin-left: -472px;
+    box-sizing: border-box;
+    text-align: center;
+    background-color: #fff
+}
+
+.protocol-modal .modal-title {
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    color: #332227
+}
+
+.protocol-modal .modal-text {
+    height: 345px;
+    margin-bottom: 45px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    font-size: 14px;
+    line-height: 26px;
+    text-align: left;
+    color: #6c6466
+}
+
+.protocol-modal .modal-text h4 {
+    margin-bottom: 30px
+}
+
+.query-content {
+    text-align: center
+}
+
+.query-content .query-info {
+    margin-bottom: 12px;
+    font-size: 14px;
+    text-align: center;
+    color: #6c6466
+}
+
+.query-content .query-form {
+    padding-bottom: 50px
+}
+
+.query-content .query-form dl dt {
+    height: 42px;
+    font-size: 14px;
+    line-height: 42px;
+    text-align: center;
+    color: #b62a2a
+}
+
+.query-content .query-form dl dd {
+    position: relative
+}
+
+.query-content .query-form dl dd input {
+    width: 100%;
+    height: 38px;
+    box-sizing: border-box;
+    font-size: 14px;
+    line-height: 38px;
+    text-align: center;
+    border: 1px solid #e8cece;
+    border-radius: 3px
+}
+
+.query-content .query-form dl dd .id-wrap {
+    height: 38px;
+    font-size: 0;
+    text-align: center
+}
+
+.query-content .query-form dl dd .id-wrap span {
+    display: inline-block;
+    width: 21px;
+    height: 36px;
+    overflow: hidden;
+    font-size: 24px;
+    color: #666;
+    border-style: solid;
+    border-color: #e8cece;
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 0
+}
+
+.query-content .query-form dl dd .id-wrap span:first-child {
+    border-left-width: 1px
+}
+
+.query-content .query-form dl dd .id-wrap span.on {
+    border-color: #b62a2a
+}
+
+.query-content .query-form dl dd .credit-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    border: 0
+}
+
+.query-content .query-tip {
+    margin-top: 16px;
+    font-weight: bold;
+    color: #6c6466
+}
+
+.options-content .big-icon {
+    margin-bottom: 26px
+}
+
+.options-content .options-title {
+    margin-bottom: 40px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    color: #b62a2a
+}
+
+.options-content .options-text {
+    font-size: 16px;
+    line-height: 26px;
+    color: #6c6466
+}
+
+.options-content dl {
+    text-align: center
+}
+
+.options-content dl dt {
+    margin-bottom: 12px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #b62a2a
+}
+
+.options-content dl dd {
+    font-size: 14px;
+    color: #6c6466
 }
 
 .news-wrap {
@@ -557,13 +935,16 @@ body .hide {
 
 .news-wrap .news-list li {
     position: relative;
+    top: 0;
     float: left;
     width: 353px;
     height: 290px;
     margin-bottom: 60px;
     margin-left: 60px;
+    -webkit-transition: all .2s linear;
+    transition: all .2s linear;
     background-color: #fafafa;
-    box-shadow: 0 0 8px 2px rgba(30, 18, 9, 0.04)
+    box-shadow: 0 0 4px 1px rgba(30, 18, 9, 0.04)
 }
 
 .news-wrap .news-list li .news-top {
@@ -596,6 +977,19 @@ body .hide {
 .news-wrap .news-list li .news-bottom {
     padding: 23px 22px 16px 20px;
     color: #6c6466
+}
+
+.news-wrap .news-list li:hover {
+    top: -5px;
+    box-shadow: 0 0 4px 1px rgba(30, 18, 9, 0.08)
+}
+
+.news-wrap .news-list li:hover .news-bottom {
+    color: #b62a2a
+}
+
+.news-wrap .news-list li:hover .icon.arrow {
+    background-position: -30px -30px
 }
 
 body {
@@ -639,6 +1033,7 @@ body {
 
 .icon {
     display: inline-block;
+    height: 26px;
     vertical-align: middle;
     background-image: url("img/icon.png");
     background-repeat: no-repeat
@@ -648,14 +1043,12 @@ body {
     position: relative;
     top: -6px;
     width: 26px;
-    height: 26px;
     margin-right: 12px;
     background-position: 0 0
 }
 
 .icon.arrow {
     width: 12px;
-    height: 26px;
     margin-top: -1px;
     margin-left: 7px;
     background-position: -30px 0
@@ -663,7 +1056,6 @@ body {
 
 .icon.tel {
     width: 26px;
-    height: 26px;
     margin-right: 5px;
     vertical-align: -7px;
     background-position: -50px 0
@@ -671,7 +1063,6 @@ body {
 
 .icon.connect {
     width: 4px;
-    height: 26px;
     margin: 0 12px;
     vertical-align: -8px;
     background-position: -80px 0
@@ -679,21 +1070,18 @@ body {
 
 .icon.user {
     width: 26px;
-    height: 26px;
     margin-right: 5px;
     vertical-align: -7px;
-    background-position: -90px 0
+    background-position: -120px 0
 }
 
 .icon.close {
     width: 26px;
-    height: 26px;
-    background-position: -120px 0
+    background-position: -90px 0
 }
 
 .icon.pwd {
     width: 26px;
-    height: 26px;
     margin-right: 5px;
     vertical-align: -7px;
     background-position: -150px 0
@@ -701,10 +1089,46 @@ body {
 
 .icon.code {
     width: 26px;
-    height: 26px;
     margin-right: 5px;
     vertical-align: -7px;
     background-position: -180px 0
+}
+
+.icon.back {
+    width: 14px;
+    margin-right: 6px;
+    vertical-align: -8px;
+    background-position: -96px -30px
+}
+
+.icon.tick {
+    width: 26px;
+    background-position: -50px -30px
+}
+
+.icon.warn {
+    width: 26px;
+    margin-right: 9px;
+    vertical-align: -8px;
+    background-position: 0 -30px
+}
+
+.big-icon {
+    display: block;
+    width: 70px;
+    height: 70px;
+    margin: 0 auto;
+    vertical-align: middle;
+    background-image: url("img/big_icon.png");
+    background-repeat: no-repeat
+}
+
+.big-icon.error {
+    background-position: 0 0
+}
+
+.big-icon.warn {
+    background-position: -80px 0
 }
 
 a.more-btn,
@@ -794,4 +1218,39 @@ a.more-btn:hover,
 
 .path-bar .current {
     color: #b62a2a
+}
+
+.btn {
+    display: block;
+    height: 48px;
+    min-width: 120px;
+    padding: 0 26px;
+    box-sizing: border-box;
+    font-size: 16px;
+    line-height: 46px;
+    cursor: pointer;
+    text-align: center;
+    border-width: 1px;
+    border-style: solid;
+    border-color: transparent;
+    border-radius: 3px
+}
+
+.btn.red {
+    color: #fff;
+    background-color: #b62a2a
+}
+
+.btn.red:hover {
+    background-color: #dd2a2a
+}
+
+.btn.white {
+    color: #6c6466;
+    border-color: #e8cece;
+    background-color: #fff
+}
+
+.btn.white:hover {
+    background-color: #faf9f9
 }

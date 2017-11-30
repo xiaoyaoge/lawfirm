@@ -1,5 +1,5 @@
 <template>
-    <section>
+    <section v-loading="initLoading">
 		<div id="main_slider">
 		    <swiper :options="swiperOption" ref="mySwiper">
 			    <!-- slides -->
@@ -58,9 +58,9 @@
 					<li v-for="(item,index) in lawyerList">
 						<dl>
 							<dt>
-								<img src="../../style/img/1.jpg" alt="" height="336" align="top">
+								<img :src="item.avatar" alt="" height="336" align="top">
 							</dt>
-							<dd>{{item.lName}}</dd>
+							<dd>{{item.lname}}</dd>
 						</dl>
 					</li>
 				</ul>
@@ -87,27 +87,13 @@ import moment from 'moment'
 export default {
     data() {
     	return {
+    		initLoading: false,
     		bannerList:[
     			{imageUrl:'1111',jumpUrl:'2222',title:'2221',id:'1'},
     			{imageUrl:'3333',jumpUrl:'44444',title:'3331',id:'2'}
     		],
-    		nwesList:[
-    			{newsId:'1',title:'赞助2017年北京大学法学院法律人求职发展交流会',createTime:1508998756000,brief:
-    		'2017年11月2日晚，由君合等律师事务所联合赞助的北京大学法学院法律人求职发展交流会在北京大学凯原楼举办，30余家国内外律所及企业，以及来自北京大学、清华大学、中国人民大学、中国政法大学等高校的法学院学生齐聚一堂。君合合伙人李茂昶、张宗珍、郑宇、孙小佳律师出席了此次活动。交流会嘉宾合影（前排左五至左八位依次为君合合伙人郑宇律师、张宗珍律师、李茂昶律师、孙小佳律师）李茂昶律师进行了开场致辞，与母校' },
-    			{newsId:'2',title:'赞助2017年北京大学法学院法律人求职发展交流会',createTime:1508998756000,brief:
-    		'2017年11月2日晚，由君合等律师事务所联合赞助的北京大学法学院法律人求职发展交流会在北京大学凯原楼举办，30余家国内外律所及企业，以及来自北京大学、清华大学、中国人民大学、中国政法大学等高校的法学院学生齐聚一堂。君合合伙人李茂昶、张宗珍、郑宇、孙小佳律师出席了此次活动。交流会嘉宾合影（前排左五至左八位依次为君合合伙人郑宇律师、张宗珍律师、李茂昶律师、孙小佳律师）李茂昶律师进行了开场致辞，与母校' },
-    			{newsId:'3',title:'赞助2017年北京大学法学院法律人求职发展交流会',createTime:1508998756000,brief:
-    		'2017年11月2日晚，由君合等律师事务所联合赞助的北京大学法学院法律人求职发展交流会在北京大学凯原楼举办，30余家国内外律所及企业，以及来自北京大学、清华大学、中国人民大学、中国政法大学等高校的法学院学生齐聚一堂。君合合伙人李茂昶、张宗珍、郑宇、孙小佳律师出席了此次活动。交流会嘉宾合影（前排左五至左八位依次为君合合伙人郑宇律师、张宗珍律师、李茂昶律师、孙小佳律师）李茂昶律师进行了开场致辞，与母校' }
-    		],
-    		lawyerList:[
-    			{introduction:'',lName:'郭梦祺',imageUrl:'1.jpg',title:'',id:'1'},
-    			{introduction:'',lName:'郭梦祺',imageUrl:'2.jpg',title:'',id:'2'},
-    			{introduction:'',lName:'郭梦祺',imageUrl:'3.jpg',title:'',id:'3'},
-    			{introduction:'',lName:'郭梦祺',imageUrl:'4.jpg',title:'',id:'4'},
-    			{introduction:'',lName:'郭梦祺',imageUrl:'5.jpg',title:'',id:'5'},
-    			{introduction:'',lName:'郭梦祺',imageUrl:'6.jpg',title:'',id:'6'},
-    			{introduction:'',lName:'郭梦祺',imageUrl:'7.jpg',title:'',id:'7'} 
-    		],
+    		nwesList:[],
+    		lawyerList:[],
     		coList:[
     			{linkUrl:'12334',lName:'郭梦祺',imageUrl:'1.jpg',title:'',id:'1'},
     			{linkUrl:'12334',lName:'郭梦祺',imageUrl:'2.jpg',title:'',id:'2'},
@@ -149,48 +135,45 @@ export default {
     	},
     	getBanner(){
     		this.$http.ajaxPost({
-	            url: 'login',
-	            params: {data:'11',mane:'aaaa'}
+	            url: 'home/bannerListQuery',
+	            params: {}
 	        }, (res) => {
 	            this.$http.aop(res, () => {
-	                 
+	                 this.bannerList = res.body.data.bannerList||[];
 	            }); 
-	        });
-
+	        }); 
     	},
     	getNews(){
     		this.$http.ajaxPost({
-	            url: 'login',
-	            params: {data:'11',mane:'aaaa'}
+	            url: 'news/listQuery',
+	            params: {category:'1',pageNo:0,pageSiez:3} //category 1:仁良动态，2:业内资讯
 	        }, (res) => {
-	            this.$http.aop(res, () => {
-	                //sessionStorage.setItem('user', JSON.stringify(res.body.data));
-	                // if (res.body.data.role == 99) {
-	                //     this.$router.push({
-	                //         path: '/lawFirm'
-	                //     });
-	                // } else {
-	                //     this.$router.push({
-	                //         path: '/enterprise'
-	                //     });
-	                // } 
+	            this.$http.aop(res, () => { 
+	            	this.nwesList = res.body.data.newsList||[]; 
 	            }); 
 	        });
 
     	},
     	getLawyer(){
     		this.$http.ajaxPost({
-	            url: 'login',
-	            params: {data:'11',mane:'aaaa'}
+	            url: 'lawyer/listQuery',
+	            params: {pageSiez:'7',pageNo:0}
 	        }, (res) => {
 	            this.$http.aop(res, () => {
-	                 
+	                 this.lawyerList = res.body.data.lawyerList||[];
 	            }); 
 	        });
     	},
+    	initGetData(){
+    		this.initLoading = true;
+    		this.getBanner();
+    		this.getLawyer();
+    		this.getNews();
+    		this.initLoading = false;
+    	}
     },
     mounted() {
-    	 
+    	this.initGetData(); 
     	
     }
 }

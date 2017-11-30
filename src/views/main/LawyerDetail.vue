@@ -2,9 +2,9 @@
 	<article class="article">
 		<div class="path-bar">
 			<div class="container">
-				<a href="index.html">首页</a>
+				 <a @click="$router.push({ path: '/main' })">首页</a>
 				<i class="icon connect"></i>
-				<a href="lawyer.html">专业律师</a>
+				<a @click="$router.push({ path: '/lawyer' })">专业律师</a>
 				<i class="icon connect"></i>
 				<span class="current">律师详情</span>
 			</div>

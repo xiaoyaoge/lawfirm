@@ -10,7 +10,7 @@ Vue.use(VueResource);
 
 Vue.http.options.emulateJSON = true;
 
-Vue.http.options.root = 'http://admin.fafashe.com/cgi';
+Vue.http.options.root = 'http://test.law.fafashe.com/cgi/';
 
 
 Vue.http.interceptors.push((req, next) => {
@@ -21,7 +21,6 @@ Vue.http.interceptors.push((req, next) => {
 });
 
 Vue.http.aop = function(res, cb) {
-     
     if (!res.ok) {
         Message.warning('接口异常');
     } else if (res.body) {
@@ -49,11 +48,7 @@ Vue.http.aop = function(res, cb) {
 
 Vue.http.ajaxPost = function(obj, fun) {
     Vue.http.post(obj.url,
-        obj.params, {
-            'headers': {
-                'Content-Type': 'application/json'
-            }
-        }).then((res) => {
+        obj.params).then((res) => {
         fun && fun(res);
     }, (res) => {
         Vue.http.aop(res);

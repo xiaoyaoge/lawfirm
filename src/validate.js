@@ -5,6 +5,9 @@ export default {
     checkPassword(val) {
         return /^\w{6,16}$/.test(val);
     },
+    checCode(val){
+        return /^\d{6}$/.test(val);
+    },
     checkEmail(val){
         return /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/.test(val);
     },

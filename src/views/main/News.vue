@@ -5,28 +5,27 @@
             <div class="container">
                 <h1 class="common-title">新闻动态</h1>
                 <div class="news-type">
-                    <a href="###" class="on">仁良业绩</a>
-                    <a href="###">业内资讯</a>
+                    <a :class="onType?'on':''" @click="typeNews(1)">仁良业绩</a>
+                    <a :class="!onType?'on':''" @click="typeNews(2)">业内资讯</a>
                 </div>
                 <ul class="news-list clear">
-                    <li v-for="(item,index) in nwesList">
+                    <li v-for="(item,index) in newsList">
                         <router-link :to="{path:'/news/'+item.newsId}">
                             <div class="news-top clear">
                                 <div class="fn-left">
                                     <i class="icon news"></i>
-                                    <span class="date">11月6日</span>
+                                    <span class="date">{{dateTime(item.createTime,'MM月DD日')}}</span>
                                 </div>
                                 <div class="fn-right">
-                                    <span class="year">2017</span>
+                                    <span class="year">{{dateTime(item.createTime,'YYYY')}}</span>
                                 </div>
                             </div>
                             <dl>
-                                <dt>赞助2017年北京大学法学院法律人求职发展交流会</dt>
-                                <dd>2017年11月2日晚，由君合等律师事务所联合赞助的北京大学法学院法律人求职发展交流会在北京大学凯原楼举办，30余家国内外律所及企业，以及来自北京大学、清华大学、中国人民大学、中国政法大学等高校的法学院学生齐聚一堂。君合合伙人李茂昶、张宗珍、郑宇、孙小佳律师出席了此次活动。交流会嘉宾合影（前排左五至左八位依次为君合合伙人郑宇律师、张宗珍律师、李茂昶律师、孙小佳律师）李茂昶律师进行了开场致辞，与母校
-                                </dd>
+                                <dt>{{item.title}}</dt>
+                                <dd>{{item.brief}} </dd>
                             </dl>
                             <div class="news-bottom clear">
-                                <div class="fn-right">
+                                <div class="fn-right" >
                                     <router-link :to="{path:'/news/'+item.newsId}" class="bk-text-button" title="查看详情">
                                         查看详情<i class="icon arrow"></i>
                                     </router-link>
@@ -35,7 +34,7 @@
                         </router-link>
                     </li>
                 </ul>
-                <a href="###" class="more-btn">加载更多</a>
+                <a v-show="more" @click="moreBtn()" class="more-btn">加载更多</a>
             </div>
         </div>
     </section>
@@ -46,46 +45,61 @@ import moment from 'moment'
 export default {
     data() {
         return {
-            nwesList:[
-                {newsId:'1',title:'赞助2017年北京大学法学院法律人求职发展交流会',createTime:'',brief:
-            '2017年11月2日晚，由君合等律师事务所联合赞助的北京大学法学院法律人求职发展交流会在北京大学凯原楼举办，30余家国内外律所及企业，以及来自北京大学、清华大学、中国人民大学、中国政法大学等高校的法学院学生齐聚一堂。君合合伙人李茂昶、张宗珍、郑宇、孙小佳律师出席了此次活动。交流会嘉宾合影（前排左五至左八位依次为君合合伙人郑宇律师、张宗珍律师、李茂昶律师、孙小佳律师）李茂昶律师进行了开场致辞，与母校' },
-                {newsId:'2',title:'赞助2017年北京大学法学院法律人求职发展交流会',createTime:'',brief:
-            '2017年11月2日晚，由君合等律师事务所联合赞助的北京大学法学院法律人求职发展交流会在北京大学凯原楼举办，30余家国内外律所及企业，以及来自北京大学、清华大学、中国人民大学、中国政法大学等高校的法学院学生齐聚一堂。君合合伙人李茂昶、张宗珍、郑宇、孙小佳律师出席了此次活动。交流会嘉宾合影（前排左五至左八位依次为君合合伙人郑宇律师、张宗珍律师、李茂昶律师、孙小佳律师）李茂昶律师进行了开场致辞，与母校' },
-                {newsId:'3',title:'赞助2017年北京大学法学院法律人求职发展交流会',createTime:'',brief:
-            '2017年11月2日晚，由君合等律师事务所联合赞助的北京大学法学院法律人求职发展交流会在北京大学凯原楼举办，30余家国内外律所及企业，以及来自北京大学、清华大学、中国人民大学、中国政法大学等高校的法学院学生齐聚一堂。君合合伙人李茂昶、张宗珍、郑宇、孙小佳律师出席了此次活动。交流会嘉宾合影（前排左五至左八位依次为君合合伙人郑宇律师、张宗珍律师、李茂昶律师、孙小佳律师）李茂昶律师进行了开场致辞，与母校' },
-             {newsId:'1',title:'赞助2017年北京大学法学院法律人求职发展交流会',createTime:'',brief:
-            '2017年11月2日晚，由君合等律师事务所联合赞助的北京大学法学院法律人求职发展交流会在北京大学凯原楼举办，30余家国内外律所及企业，以及来自北京大学、清华大学、中国人民大学、中国政法大学等高校的法学院学生齐聚一堂。君合合伙人李茂昶、张宗珍、郑宇、孙小佳律师出席了此次活动。交流会嘉宾合影（前排左五至左八位依次为君合合伙人郑宇律师、张宗珍律师、李茂昶律师、孙小佳律师）李茂昶律师进行了开场致辞，与母校' },
-                {newsId:'2',title:'赞助2017年北京大学法学院法律人求职发展交流会',createTime:'',brief:
-            '2017年11月2日晚，由君合等律师事务所联合赞助的北京大学法学院法律人求职发展交流会在北京大学凯原楼举办，30余家国内外律所及企业，以及来自北京大学、清华大学、中国人民大学、中国政法大学等高校的法学院学生齐聚一堂。君合合伙人李茂昶、张宗珍、郑宇、孙小佳律师出席了此次活动。交流会嘉宾合影（前排左五至左八位依次为君合合伙人郑宇律师、张宗珍律师、李茂昶律师、孙小佳律师）李茂昶律师进行了开场致辞，与母校' },
-                {newsId:'3',title:'赞助2017年北京大学法学院法律人求职发展交流会',createTime:'',brief:
-            '2017年11月2日晚，由君合等律师事务所联合赞助的北京大学法学院法律人求职发展交流会在北京大学凯原楼举办，30余家国内外律所及企业，以及来自北京大学、清华大学、中国人民大学、中国政法大学等高校的法学院学生齐聚一堂。君合合伙人李茂昶、张宗珍、郑宇、孙小佳律师出席了此次活动。交流会嘉宾合影（前排左五至左八位依次为君合合伙人郑宇律师、张宗珍律师、李茂昶律师、孙小佳律师）李茂昶律师进行了开场致辞，与母校' },
-             {newsId:'1',title:'赞助2017年北京大学法学院法律人求职发展交流会',createTime:'',brief:
-            '2017年11月2日晚，由君合等律师事务所联合赞助的北京大学法学院法律人求职发展交流会在北京大学凯原楼举办，30余家国内外律所及企业，以及来自北京大学、清华大学、中国人民大学、中国政法大学等高校的法学院学生齐聚一堂。君合合伙人李茂昶、张宗珍、郑宇、孙小佳律师出席了此次活动。交流会嘉宾合影（前排左五至左八位依次为君合合伙人郑宇律师、张宗珍律师、李茂昶律师、孙小佳律师）李茂昶律师进行了开场致辞，与母校' },
-                {newsId:'2',title:'赞助2017年北京大学法学院法律人求职发展交流会',createTime:'',brief:
-            '2017年11月2日晚，由君合等律师事务所联合赞助的北京大学法学院法律人求职发展交流会在北京大学凯原楼举办，30余家国内外律所及企业，以及来自北京大学、清华大学、中国人民大学、中国政法大学等高校的法学院学生齐聚一堂。君合合伙人李茂昶、张宗珍、郑宇、孙小佳律师出席了此次活动。交流会嘉宾合影（前排左五至左八位依次为君合合伙人郑宇律师、张宗珍律师、李茂昶律师、孙小佳律师）李茂昶律师进行了开场致辞，与母校' },
-                {newsId:'3',title:'赞助2017年北京大学法学院法律人求职发展交流会',createTime:'',brief:
-            '2017年11月2日晚，由君合等律师事务所联合赞助的北京大学法学院法律人求职发展交流会在北京大学凯原楼举办，30余家国内外律所及企业，以及来自北京大学、清华大学、中国人民大学、中国政法大学等高校的法学院学生齐聚一堂。君合合伙人李茂昶、张宗珍、郑宇、孙小佳律师出席了此次活动。交流会嘉宾合影（前排左五至左八位依次为君合合伙人郑宇律师、张宗珍律师、李茂昶律师、孙小佳律师）李茂昶律师进行了开场致辞，与母校' }
-            ],
+            onType:true,
+            category:1,
+            newsFlag:1,
+            pageNo:0,
+            more:0,
+            newsList:[],
         }
     },
     methods: {
         dateTime(val,type){
             return moment(val).format(type);
         },
-        getLawyerList(){
+        dateTime(val,type){
+            return moment(val).format(type);
+        },
+        getNews(){
             this.$http.ajaxPost({
-                url: 'lawyer',
-                params: {}
+                url: 'news/listQuery',
+                params: {category:this.category,pageNo:0,pageSiez:1} //category 1:仁良动态，2:业内资讯
             }, (res) => {
-                this.$http.aop(res, () => {
-                    //res.body.data.role 
-
-                });
-
+                this.$http.aop(res, () => { 
+                    this.newsList = res.body.data.newsList||[];
+                    this.more =  res.body.data.more;
+                }); 
             });
+
+        },
+        moreNews(){
+            this.$http.ajaxPost({
+                url: 'news/listQuery',
+                params: {category:this.category,pageNo:this.pageNo,pageSiez:9} //category 1:仁良动态，2:业内资讯
+            }, (res) => {
+                this.$http.aop(res, () => { 
+                    this.newsList.concat(res.body.data.newsList||[]); 
+                    this.more =  res.body.data.more;
+                }); 
+            }); 
+        },
+        typeNews(val){
+            this.category = val;
+            if(val ===1){
+                this.onType = true; 
+                this.pageNo = 0;
+                this.getNews();
+            }else{
+                this.onType = false;
+                this.getNews();
+            }
+        },
+        moreBtn(){ 
+            this.moreNews(); 
         }
     },
     mounted() {
+        this.getNews();
     }
 }
 </script>
