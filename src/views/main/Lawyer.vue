@@ -12,14 +12,14 @@
                 <h1 class="common-title">专业律师</h1>
                 <ul class="lawyer-list clear">
                     <li v-for="(item,index) in lawyerList">
-                        <router-link :to="{path:'/lawyer/'+item.id}" class="bk-text-button" title="查看详情">
+                        <router-link :to="{path:'/lawyer/'+item.lid}" class="bk-text-button" title="查看详情">
                             <div class="img-box">
-                                <img src="../../style/img/1.jpg" alt="" width="265" height="265" align="top">
+                                <img :src="item.avatar" alt="" width="265" height="265" align="top">
                             </div>
                             <dl>
                                 <dt>{{item.lname}}</dt>
                                 <dd>
-                                    <p v-for="itmes in titleJoin(item.title)">{{itmes}}</p> 
+                                    <p v-for="itmes in titleJoin(item.title)">{{itmes}}</p>
                                 </dd>
                             </dl>
                         </router-link>
@@ -34,7 +34,7 @@ import '../../style/lawyer.css';
 export default {
     data() {
         return {
-            lawyerList:[],
+            lawyerList:[], 
         }
     },
     methods: {

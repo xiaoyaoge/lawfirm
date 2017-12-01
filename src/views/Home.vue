@@ -1,6 +1,6 @@
 <template>
     <div>
-        <header class="header">
+        <div class="header">
             <div class="fn-clear container">
                 <a href="/" class="logo">
                     <img src="../style/img/logo.png" width="201" height="48" align="middle" alt="">
@@ -26,13 +26,13 @@
                     </div>
                 </div>
             </div>
-        </header>
-        <article>
+        </div>
+        <div class="article">
             <transition name="fade" mode="out-in">
                 <router-view></router-view>
             </transition>
-        </article>
-        <footer class="footer">
+        </div>
+        <div class="footer">
             <div class="container">
                 <div class="fn-clear">
                     <div class="fn-left">
@@ -77,7 +77,7 @@
             <div class="copyright">
                 © Renliang 2016 京ICP备06002628号-1
             </div>
-        </footer>
+        </div>
         <!-- 登录弹窗 -->
         <div class="layer" v-show="loginHieden">
             <div class="common-modal">
@@ -451,12 +451,12 @@ export default {
     mounted() {
         this.drag();
         let user = sessionStorage.getItem('user');
-        console.log(user);
+        
         if (user) {
             user = JSON.parse(user);
             this.loginType = user.mobile || '';
         }
-        console.log(this.loginType);
+        //console.log(this.loginType);
         console.log(this.$router.options.routes);
     }
 }
