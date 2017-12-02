@@ -107,7 +107,12 @@
 					<!-- 验证滑块 -->
 					<div class="verify-item">
 						<span>按住滑块，拖至最右侧</span>
-						<div class="process-tag" style="left: 10%;"></div>
+						<!-- 最小宽度15%,拖拽宽度从15%开始加,并且在process-bar加class="ing" -->
+						<!-- 完成在process-bar加上class="finished",width为100%,并且将文案改为验证通过 -->
+						<div class="process-bar ing" style="width: 50%;">
+							<span class="process-tag"></span>
+							<span class="process-text">按住滑块，拖至最右侧</span>
+						</div>
 					</div>
 					<div class="form-link-wrap fn-clear">
 						<a href="###" class="fn-right">忘记密码？</a>
