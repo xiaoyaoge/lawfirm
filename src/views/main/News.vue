@@ -25,7 +25,7 @@
                                 <dd>{{item.brief}} </dd>
                             </dl>
                             <div class="news-bottom clear">
-                                <div class="fn-right" >
+                                <div class="fn-right">
                                     <router-link :to="{path:'/news/'+item.newsId}" class="bk-text-button" title="查看详情">
                                         查看详情<i class="icon arrow"></i>
                                     </router-link>
@@ -45,57 +45,60 @@ import moment from 'moment'
 export default {
     data() {
         return {
-            onType:true,
-            category:1,
-            newsFlag:1,
-            pageNo:0,
-            more:0,
-            newsList:[],
+            onType: true,
+            category: 1,
+            newsFlag: 1,
+            pageNo: 0,
+            more: 0,
+            newsList: [],
         }
     },
     methods: {
-        dateTime(val,type){
+        dateTime(val, type) {
             return moment(val).format(type);
         },
-        dateTime(val,type){
+        dateTime(val, type) {
             return moment(val).format(type);
         },
-        getNews(){
+        getNews() {
+            this.pageNo = 0;
             this.$http.ajaxPost({
                 url: 'news/listQuery',
-                params: {category:this.category,pageNo:0,pageSiez:1} //category 1:仁良动态，2:业内资讯
+                params: { category: this.category, pageNo: this.pageNo, pageSiez: 9 }
+                //category 1:仁良动态，2:业内资讯
             }, (res) => {
-                this.$http.aop(res, () => { 
-                    this.newsList = res.body.data.newsList||[];
-                    this.more =  res.body.data.more;
-                }); 
+                this.$http.aop(res, () => {
+                    this.newsList = res.body.data.newsList || [];
+                    this.more = res.body.data.more;
+                });
             });
 
         },
-        moreNews(){
+        moreNews() {
+            this.pageNo++;
             this.$http.ajaxPost({
                 url: 'news/listQuery',
-                params: {category:this.category,pageNo:this.pageNo,pageSiez:9} //category 1:仁良动态，2:业内资讯
+                params: { category: this.category, pageNo: this.pageNo, pageSiez: 9 }
+                //category 1:仁良动态，2:业内资讯
             }, (res) => {
-                this.$http.aop(res, () => { 
-                    this.newsList.concat(res.body.data.newsList||[]); 
-                    this.more =  res.body.data.more;
-                }); 
-            }); 
+                this.$http.aop(res, () => {
+                    this.newsList.concat(res.body.data.newsList || []);
+                    this.more = res.body.data.more;
+                });
+            });
         },
-        typeNews(val){
+        typeNews(val) {
             this.category = val;
-            if(val ===1){
-                this.onType = true; 
-                this.pageNo = 0;
+            if (val === 1) {
+                this.onType = true;
                 this.getNews();
-            }else{
+            } else {
                 this.onType = false;
                 this.getNews();
             }
         },
-        moreBtn(){ 
-            this.moreNews(); 
+        moreBtn() {
+            this.moreNews();
         }
     },
     mounted() {

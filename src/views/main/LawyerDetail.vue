@@ -47,18 +47,19 @@ export default {
         },
         getLawyer() {
             this.$http.ajaxPost({
-                url: 'lawyer/detailQuery',
-                params: {}
+                url: 'lawyer/queryInfo',
+                params: { lid: this.$route.params.id }
             }, (res) => {
                 this.$http.aop(res, () => {
-                    this.lawyer = res.body.data.brief;
+                    //this.lawyer = res.body.data.brief;
+
                 });
 
             });
         }
     },
     mounted() {
-
+        this.getLawyer();
     }
 }
 </script>

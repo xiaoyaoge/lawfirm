@@ -11,9 +11,10 @@
         </div>
         <div class="letters-box">
             <div class="container">
-                <h2 class="">最近函件公示</h2>
+                <h2 v-if="title">最近函件公示</h2>
+                <h2 v-else>查询结果</h2>
                 <!-- 搜索结果 -->
-                <div class="search-result">
+                <div v-if="letterList.length>0" class="search-result">
                     <table>
                         <thead>
                             <tr>
@@ -29,21 +30,22 @@
                         <tbody>
                             <tr v-for="(item,index) in letterList">
                                 <td></td>
-                                <td>{{item.id}}</td>
-                                <td>{{item.type}}</td>
-                                <td>{{item.name}}</td>
-                                <td>{{item.idCard}}</td>
-                                <td>{{item.time}}</td>
-                                <td><a @click="viewsLetter(item.type)">验证查看</a></td>
+                                <td>NO. {{item.detailId}}</td>
+                                <td>{{orderTypeTxt(item.orderType)}}</td>
+                                <td>{{item.receiverName}}</td>
+                                <td>{{item.receiverIdCard}}</td>
+                                <td>{{dateTime(item.sendTime,'YYYY-MM-DD')}}</td>
+                                <td><a @click="viewsLetter(item)">验证查看</a></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
                 <!-- 搜索无果 -->
-                <div class="search-result none hide">
+                <div v-else class="search-result none">
                     <dl>
                         <dt><i class="box-icon"></i></dt>
-                        <dd>未找到与<b class="c-red">“12566”</b>相关的函件</dd>
+                        <dd v-if="searchKeyWord">未找到与<b class="c-red">“{{searchKeyWord}}”</b>相关的函件</dd>
+                        <dd v-else>没有数据</dd>
                     </dl>
                 </div>
                 <a v-show="more" @click="moreBtn()" class="more-btn">查看更多</a>
@@ -66,17 +68,17 @@
                         <dl v-if="codeType=='email'">
                             <dt>收函邮箱</dt>
                             <dd>
-                                <input type="text" v-model="searchKeyWord" placeholder="请输入收函邮箱地址">
+                                <input type="text" v-model="searchKeyEmail" placeholder="请输入收函邮箱地址">
                             </dd>
                         </dl>
                         <dl v-else>
                             <dt>手机号码</dt>
                             <dd>
-                                <input type="tel" v-model="searchKeyWord" maxlength="11" placeholder="请输入短信收件人手机号码">
+                                <input type="tel" v-model="searchKeyMobile" maxlength="11" placeholder="请输入短信收件人手机号码">
                             </dd>
                         </dl>
                     </div>
-                    <button class="modal-btn">确定</button>
+                    <button class="modal-btn" @click="isOkview()">确定</button>
                     <div class="query-tip">您今日还有 <span class="c-red">{{searchNubmer}}</span> 次查询机会</div>
                 </div>
             </div>
@@ -119,34 +121,34 @@
             </div>
         </div>
         <!-- 短信模板弹窗 -->
-        <div class="layer hide">
+        <div v-if="resultMsgBox" class="layer">
             <div class="common-modal">
-                <i class="icon close"></i>
+                <i class="icon close" @click="resultMsgBox=false"></i>
                 <div class="modal-content options-content">
                     <h4 class="options-title">NO.123445 短信 王尼玛</h4>
-                    <div class="options-text">
-                        【仁良律所】王尼玛，我所受蓝天白云委托警告：由于您拒不履约，我所将发送《起诉告知函》至您身申办业务时填写的邮箱或实际地址！如拒不履约还款，将按照函告内容追究法律责任。请联系17503030303
-                    </div>
+                    <div class="options-text">{{esultMsgData.message}}</div>
                 </div>
                 <div class="modal-bottom">
                     <div class="btn-content">
                         <button class="btn red">复制</button>
-                        <button class="btn white">关闭</button>
+                        <button class="btn white" @click="resultMsgBox=false">关闭</button>
                     </div>
                 </div>
             </div>
         </div>
         <!-- 律师函弹窗 -->
-        <div class="layer hide">
+        <div v-if="resultEmailBox" class="layer">
             <div class="common-modal letter-modal">
-                <i class="icon close"></i>
+                <i class="icon close" @click="resultEmailBox=false"></i>
                 <div class="modal-content">
-                    <img src="../../style/img/letter_sample.png" alt="" width="726" height="1035">
+                    <iframe :src="resultEmailData.letterUrl" style="border:none; width:100%; min-height: 500px;"></iframe>
+                    <!-- <img src="../../style/img/letter_sample.png" alt="" width="726" height="1035"> -->
                 </div>
                 <div class="modal-bottom">
                     <div class="btn-content">
-                        <button class="btn red">下载</button>
-                        <button class="btn white">关闭</button>
+                        <!-- <button class="btn red" >下载</button> -->
+                        <a :href="resultEmailData.letterUrl" class="btn red">下载</a>
+                        <button class="btn white" @click="resultEmailBox=false">关闭</button>
                     </div>
                 </div>
             </div>
@@ -157,36 +159,54 @@
 import '../../style/letter.css';
 import validate from '../../validate'
 import VueInputCode from 'vue-input-code'
+import moment from 'moment'
 export default {
     components: {
         VueInputCode
     },
     data() {
         return {
+            title: true,
+            pageNo: 0,
             codeBox: false,
             codeType: 'email',
             code: ['1', ''],
             codeString: "",
             input: "",
             searchKeyWord: '',
-            searchNubmer: 0,
+            searchNubmer: 6,
             hiedenWarn: false,
-            letterList: [
-                { type: '短信', name: '王*玛', idCard: '124457********8852', time: '2017-10-24', id: 'NO.123445' },
-                { type: '电子邮件', name: '王*玛', idCard: '124457********8852', time: '2017-10-24', id: 'NO.123445' },
-                { type: '短信', name: '王*玛', idCard: '124457********8852', time: '2017-10-24', id: 'NO.123445' },
-                { type: '电子邮件', name: '王*玛', idCard: '124457********8852', time: '2017-10-24', id: 'NO.123445' },
-                { type: '短信', name: '王*玛', idCard: '124457********8852', time: '2017-10-24', id: 'NO.123445' },
-                { type: '电子邮件', name: '王*玛', idCard: '124457********8852', time: '2017-10-24', id: 'NO.123445' },
-                { type: '短信', name: '王*玛', idCard: '124457********8852', time: '2017-10-24', id: 'NO.123445' },
-                { type: '电子邮件', name: '王*玛', idCard: '124457********8852', time: '2017-10-24', id: 'NO.123445' },
-                { type: '短信', name: '王*玛', idCard: '124457********8852', time: '2017-10-24', id: 'NO.123445' },
-                { type: '电子邮件', name: '王*玛', idCard: '124457********8852', time: '2017-10-24', id: 'NO.123445' }
-            ],
+            pageSiez: 1,
+            searchKeyEmail: '',
+            searchKeyMobile: '',
+            viewsLetterData: {},
+            resultMsgBox: false,
+            esultMsgData: {},
+            resultEmailBox: false,
+            resultEmailData: {},
+            letterList: [],
             more: 0,
         }
     },
     methods: {
+        orderTypeTxt(val) {
+            let text = '';
+            switch (val) {
+                case 10:
+                    text = '短信';
+                    break;
+                case 20:
+                    text = '电子邮件';
+                    break;
+                default:
+                    text = '邮件下载'
+                    break;
+            }
+            return text;
+        },
+        dateTime(val, type) {
+            return moment(val).format(type);
+        },
         getInput(code) {
             this.input = code;
             //console.log(this.input);
@@ -196,6 +216,13 @@ export default {
             //console.log(this.codeString);
         },
         searchBtn() {
+            if (this.searchKeyWord === '') {
+                this.$message({
+                    message: '请输入要查询的身份证或函件',
+                    type: 'warning'
+                });
+                return;
+            }
             let user = sessionStorage.getItem('user');
             if (user) {
                 if (this.searchNubmer < 1) {
@@ -207,35 +234,118 @@ export default {
                 this.$parent.loginHieden = true;
             }
         },
-        viewsLetter(type) {
+        viewsLetter(obj) {
             let user = sessionStorage.getItem('user');
             if (user) {
-                if (type == "短信") {
+                if (obj.orderType == "10") {
                     this.codeType = 'msg';
                 } else {
                     this.codeType = 'email';
                 }
+                this.codeString = '';
+                this.viewsLetterData = obj;
                 this.codeBox = true;
             } else {
                 this.$parent.loginHieden = true;
             }
-
         },
-        getLetterList() {
+        isOkview() {
+            let opts = this.viewsLetterData;
+            this.getSearchView(opts);
+        },
+        getSearchView(opts) {
+            let params = {
+                detailId: opts.detailId,
+                idCard: this.codeString,
+                orderType: opts.orderType
+            };
+            if (!validate.checkID(params.idCard)) {
+                this.$message({
+                    message: '请输入正确的身份证号',
+                    type: 'warning'
+                });
+                return;
+            }
+            if (opts.orderType == 10) {
+                params.mobile = this.searchKeyMobile;
+                if (!validate.checkPhoneNum(params.mobile)) {
+                    this.$message({
+                        message: '请输入正确的手机号码',
+                        type: 'warning'
+                    });
+                    return;
+                }
+            } else {
+                params.email = this.searchKeyEmail;
+                if (!validate.checkEmail(params.email)) {
+                    this.$message({
+                        message: '请输入正确的邮箱地址',
+                        type: 'warning'
+                    });
+                    return;
+                }
+            }
+
             this.$http.ajaxPost({
-                url: 'letter/listQuery',
-                params: { keyWord: this.searchKeyWord, pageNo: 0, pageSiez: 1 } //category 1:仁良动态，2:业内资讯
+                url: 'order/verify',
+                params: params,
             }, (res) => {
                 this.$http.aop(res, () => {
-                    this.letterList = res.body.data.letterList || [];
-                    this.more = res.body.data.more;
+                    if (this.codeType == 'msg') {
+                        this.resultMsgBox = true;
+                        this.resultMsgData = res.body.data;
+                    } else {
+                        this.resultEmailBox = true;
+                        this.resultEmailData = res.body.data;
+                    }
+
+                });
+            });
+        },
+        getLetterList() {
+            this.pageNo = 0;
+            let params = {
+                pageNo: this.pageNo,
+                pageSiez: 1
+            };
+            if (!validate.checkID(this.searchKeyWord)) {
+                params.detailId = this.searchKeyWord;
+            } else {
+                params.idCard = this.searchKeyWord;
+            }
+            this.$http.ajaxPost({
+                url: 'order/listQuery',
+                params: params,
+            }, (res) => {
+                this.$http.aop(res, () => {
+                    try {
+                        this.letterList = res.body.data.orderList || [];
+                        this.more = res.body.data.more;
+                    } catch (e) {
+                        this.$message({
+                            message: '请求有误，请稍后再试',
+                            type: 'warning'
+                        });
+                        return;
+                    }
+                    this.title = false;
                 });
             });
         },
         moreBtn() {
+            this.pageNo++;
+            let params = {
+                pageNo: this.pageNo,
+                pageSiez: 1
+            };
+            if (!validate.checkID(this.searchKeyWord)) {
+                params.detailId = this.searchKeyWord;
+            } else {
+                params.idCard = this.searchKeyWord;
+            }
             this.$http.ajaxPost({
-                url: 'letter/listQuery',
-                params: { keyWord: this.searchKeyWord, pageNo: 0, pageSiez: 1 } //category 1:仁良动态，2:业内资讯
+                url: 'order/listQuery',
+                params: params,
             }, (res) => {
                 this.$http.aop(res, () => {
                     this.letterList = res.body.data.letterList || [];
