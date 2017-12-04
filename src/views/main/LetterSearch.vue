@@ -4,7 +4,7 @@
             <div class="container">
                 <div class="search-form">
                     <input type="text" v-model="searchKeyWord" placeholder="请输入身份证或者函件编号" value="" />
-                    <button @click="searchBtn()">搜索</button>
+                    <button @click="getCount(1,{})">搜索</button>
                 </div>
                 <div class="search-tip">需登录后才可以查询律所所发出的短信或者电子函件</div>
             </div>
@@ -35,7 +35,7 @@
                                 <td>{{item.receiverName}}</td>
                                 <td>{{item.receiverIdCard}}</td>
                                 <td>{{dateTime(item.sendTime,'YYYY-MM-DD')}}</td>
-                                <td><a @click="viewsLetter(item)">验证查看</a></td>
+                                <td><a @click="getCount(2,item)">验证查看</a></td>
                             </tr>
                         </tbody>
                     </table>
@@ -79,7 +79,7 @@
                         </dl>
                     </div>
                     <button class="modal-btn" @click="isOkview()">确定</button>
-                    <div class="query-tip">您今日还有 <span class="c-red">{{searchNubmer}}</span> 次查询机会</div>
+                    <div class="query-tip">您今日还有 <span class="c-red">{{verifyNubmer}}</span> 次验证机会</div>
                 </div>
             </div>
         </div>
@@ -102,20 +102,20 @@
             </div>
         </div>
         <!-- 报错弹窗 -->
-        <div class="layer hide">
+        <div v-if="hiedenVerify" class="layer">
             <div class="common-modal">
-                <i class="icon close"></i>
+                <i class="icon close" @click="hiedenVerify=false"></i>
                 <div class="modal-content options-content">
                     <i class="big-icon error"></i>
                     <dl>
                         <dt>验证失败，您输入的身份证号不匹配</dt>
-                        <dd>您还有 <span class="c-red">5</span> 次查询机会</dd>
+                        <dd>您还有 <span class="c-red">{{verifyNubmer-1}}</span> 次查询机会</dd>
                     </dl>
                 </div>
                 <div class="modal-bottom">
                     <div class="btn-content">
-                        <button class="btn red">重新验证</button>
-                        <button class="btn white">取消</button>
+                        <!-- <button class="btn red" @click="">重新验证</button> -->
+                        <button class="btn white" @click="hiedenVerify=false">取消</button>
                     </div>
                 </div>
             </div>
@@ -175,8 +175,10 @@ export default {
             input: "",
             searchKeyWord: '',
             searchNubmer: 6,
+            verifyNubmer: 6,
             hiedenWarn: false,
-            pageSiez: 1,
+            hiedenVerify: false,
+            pageSize: 1,
             searchKeyEmail: '',
             searchKeyMobile: '',
             viewsLetterData: {},
@@ -214,6 +216,32 @@ export default {
         success(code) {
             this.codeString = code;
             //console.log(this.codeString);
+        },
+        getCount(type, item) {
+            let params = {
+                type: type
+            };
+            this.$http.ajaxPost({
+                url: 'order/getTimes', //搜索type为1，验证为2
+                params: params,
+            }, (res) => {
+                this.$http.aop(res, () => {
+                    if (res.body.data.remainTimes > 0) {
+                        if (type == 1) {
+                            this.searchBtn();
+                        } else if (type === 2) {
+                            this.viewsLetter(item);
+                            this.verifyNubmer = res.body.data.remainTimes;
+                        }
+                    } else {
+                        this.hiedenWarn = true;
+                        this.title = true;
+                        this.$parent.searchKeyWord = '';
+                        this.getLetterLast();
+                    }
+                });
+            });
+
         },
         searchBtn() {
             if (this.searchKeyWord === '') {
@@ -290,6 +318,7 @@ export default {
                 url: 'order/verify',
                 params: params,
             }, (res) => {
+                this.codeBox = false;
                 this.$http.aop(res, () => {
                     if (this.codeType == 'msg') {
                         this.resultMsgBox = true;
@@ -298,7 +327,6 @@ export default {
                         this.resultEmailBox = true;
                         this.resultEmailData = res.body.data;
                     }
-
                 });
             });
         },
@@ -306,7 +334,7 @@ export default {
             this.pageNo = 0;
             let params = {
                 pageNo: this.pageNo,
-                pageSiez: 1
+                pageSize: 10
             };
             if (!validate.checkID(this.searchKeyWord)) {
                 params.detailId = this.searchKeyWord;
@@ -333,30 +361,60 @@ export default {
             });
         },
         moreBtn() {
+            let _this = this;
             this.pageNo++;
             let params = {
                 pageNo: this.pageNo,
-                pageSiez: 1
+                pageSize: 10
             };
-            if (!validate.checkID(this.searchKeyWord)) {
-                params.detailId = this.searchKeyWord;
-            } else {
-                params.idCard = this.searchKeyWord;
-            }
             this.$http.ajaxPost({
-                url: 'order/listQuery',
+                url: 'order/lastQuery',
                 params: params,
             }, (res) => {
                 this.$http.aop(res, () => {
-                    this.letterList = res.body.data.letterList || [];
+                    let dataStr = res.body.data.orderBaseList || [];
+                    dataStr.forEach(function(itme) {
+                        _this.letterList.push(itme);
+                    });
+
                     this.more = res.body.data.more;
                 });
             });
+        },
+        getLetterLast() {
+            this.pageNo = 0;
+            let params = {
+                pageNo: this.pageNo,
+                pageSize: 10
+            };
+            this.$http.ajaxPost({
+                url: 'order/lastQuery',
+                params: params,
+            }, (res) => {
+                this.$http.aop(res, () => {
+                    try {
+                        this.letterList = res.body.data.orderBaseList || [];
+                        this.more = res.body.data.more;
+                    } catch (e) {
+                        this.$message({
+                            message: '请求有误，请稍后再试',
+                            type: 'warning'
+                        });
+                        return;
+                    }
+                    this.title = false;
+                });
+            });
         }
-
     },
     mounted() {
-        //this.$parent.loginHieden = true;
+        if (this.$parent.searchKeyWord) {
+            this.searchKeyWord = this.$parent.searchKeyWord; 
+            this.getCount(1, {});
+        } else {
+            this.getLetterLast();
+        }
+
     }
 }
 </script>

@@ -44,7 +44,7 @@ export default {
         getLawyer(){
             this.$http.ajaxPost({
                 url: 'lawyer/listQuery',
-                params: {pageSiez:'7',pageNo:0}
+                params: {pageSize:'7',pageNo:0}
             }, (res) => {
                 this.$http.aop(res, () => {
                      this.lawyerList = res.body.data.lawyerList||[];

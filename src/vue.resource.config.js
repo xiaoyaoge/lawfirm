@@ -32,7 +32,7 @@ Vue.http.aop = function(res, cb) {
             case 10000:
                 //todo 
                 sessionStorage.removeItem('user');
-                window.location.href = '#/login';
+                window.location.href = '#/main';
                 Message.warning(res.body.errMsg);
                 return;
                 // 异常

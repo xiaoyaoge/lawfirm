@@ -64,7 +64,7 @@ export default {
             this.pageNo = 0;
             this.$http.ajaxPost({
                 url: 'news/listQuery',
-                params: { category: this.category, pageNo: this.pageNo, pageSiez: 9 }
+                params: { category: this.category, pageNo: this.pageNo, pageSize: 9 }
                 //category 1:仁良动态，2:业内资讯
             }, (res) => {
                 this.$http.aop(res, () => {
@@ -75,14 +75,18 @@ export default {
 
         },
         moreNews() {
+            let  _this = this;
             this.pageNo++;
             this.$http.ajaxPost({
                 url: 'news/listQuery',
-                params: { category: this.category, pageNo: this.pageNo, pageSiez: 9 }
+                params: { category: this.category, pageNo: this.pageNo, pageSize: 9 }
                 //category 1:仁良动态，2:业内资讯
             }, (res) => {
                 this.$http.aop(res, () => {
-                    this.newsList.concat(res.body.data.newsList || []);
+                    let dataStr = res.body.data.newsList||[];
+                    dataStr.forEach(function(itme){
+                        _this.newsList.push(itme);
+                    }); 
                     this.more = res.body.data.more;
                 });
             });

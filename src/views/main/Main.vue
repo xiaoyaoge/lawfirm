@@ -46,8 +46,8 @@
 			<div class="container">
 				<div class="search-form">
 					<label for="">函件查询</label>
-					<input type="text" placeholder="请输入身份证或者函件编号" value="" />
-					<button>搜索</button>
+					<input type="text" v-model="keyWord" placeholder="请输入身份证或者函件编号" />
+					<button @click="searchBtns()">搜索</button>
 				</div>
 			</div>
 		</div>
@@ -67,7 +67,7 @@
 				<router-link :to="{path:'/lawyer'}" class="more-btn" title="查看更多">查看更多</router-link>
 			</div>
 		</div>
-		<div class="co-wrap">
+		<div class="co-wrap hide">
 			<div class="container">
 				<h1 class="common-title">合作组织</h1>
 				<ul class="co-list clear">
@@ -87,6 +87,7 @@ import moment from 'moment'
 export default {
     data() {
     	return {
+    		keyWord:'',
     		initLoading: false,
     		bannerList:[
     			{imageUrl:'1111',jumpUrl:'2222',title:'2221',id:'1'},
@@ -146,7 +147,7 @@ export default {
     	getNews(){
     		this.$http.ajaxPost({
 	            url: 'news/listQuery',
-	            params: {category:'1',pageNo:0,pageSiez:3} //category 1:仁良动态，2:业内资讯
+	            params: {category:'1',pageNo:0,pageSize:3} //category 1:仁良动态，2:业内资讯
 	        }, (res) => {
 	            this.$http.aop(res, () => { 
 	            	this.nwesList = res.body.data.newsList||[]; 
@@ -157,7 +158,7 @@ export default {
     	getLawyer(){
     		this.$http.ajaxPost({
 	            url: 'lawyer/listQuery',
-	            params: {pageSiez:'7',pageNo:0}
+	            params: {pageSize:'7',pageNo:0}
 	        }, (res) => {
 	            this.$http.aop(res, () => {
 	                 this.lawyerList = res.body.data.lawyerList||[];
@@ -170,6 +171,10 @@ export default {
     		this.getLawyer();
     		this.getNews();
     		this.initLoading = false;
+    	},
+    	searchBtns(){
+    		this.$parent.searchKeyWord = this.keyWord;
+    		this.$router.push({ path: '/search'});
     	}
     },
     mounted() {

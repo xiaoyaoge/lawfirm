@@ -255,6 +255,7 @@ export default {
             registerType: 'register',
             agreeHieden: false,
             verifyCode: false,
+            searchKeyWord: '',
             form: {
                 mobile: '',
                 password: ''
@@ -568,7 +569,7 @@ export default {
             this.loginType = user.mobile || '';
         }
         //console.log(this.loginType);
-        console.log(this.$router.options.routes);
+        //console.log(this.$router.options.routes);
     }
 }
 </script>
