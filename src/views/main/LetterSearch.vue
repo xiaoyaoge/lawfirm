@@ -121,12 +121,12 @@
             </div>
         </div>
         <!-- 短信模板弹窗 -->
-        <div v-if="resultMsgBox" class="layer">
+        <div v-show="resultMsgBox" class="layer">
             <div class="common-modal">
                 <i class="icon close" @click="resultMsgBox=false"></i>
                 <div class="modal-content options-content">
-                    <h4 class="options-title">NO.123445 短信 王尼玛</h4>
-                    <div class="options-text">{{esultMsgData.message}}</div>
+                    <h4 class="options-title">NO. {{resultMsgData.detailId}} 短信 {{resultMsgData.name}}</h4>
+                    <div class="options-text">{{resultMsgData.message}}</div>
                 </div>
                 <div class="modal-bottom">
                     <div class="btn-content">
@@ -137,7 +137,7 @@
             </div>
         </div>
         <!-- 律师函弹窗 -->
-        <div v-if="resultEmailBox" class="layer">
+        <div v-show="resultEmailBox" class="layer">
             <div class="common-modal letter-modal">
                 <i class="icon close" @click="resultEmailBox=false"></i>
                 <div class="modal-content">
@@ -183,7 +183,7 @@ export default {
             searchKeyMobile: '',
             viewsLetterData: {},
             resultMsgBox: false,
-            esultMsgData: {},
+            resultMsgData: {},
             resultEmailBox: false,
             resultEmailData: {},
             letterList: [],
@@ -221,26 +221,32 @@ export default {
             let params = {
                 type: type
             };
-            this.$http.ajaxPost({
-                url: 'order/getTimes', //搜索type为1，验证为2
-                params: params,
-            }, (res) => {
-                this.$http.aop(res, () => {
-                    if (res.body.data.remainTimes > 0) {
-                        if (type == 1) {
-                            this.searchBtn();
-                        } else if (type === 2) {
-                            this.viewsLetter(item);
-                            this.verifyNubmer = res.body.data.remainTimes;
+            let user = sessionStorage.getItem('user');
+            if (user) {
+                this.$http.ajaxPost({
+                    url: 'order/getTimes', //搜索type为1，验证为2
+                    params: params,
+                }, (res) => {
+                    this.$http.aop(res, () => {
+                        console.log(type, item);
+                        if (res.body.data.remainTimes > 1) {
+                            if (type === 1) {
+                                this.searchBtn();
+                            } else if (type === 2) {
+                                this.viewsLetter(item);
+                                this.verifyNubmer = res.body.data.remainTimes;
+                            }
+                        } else {
+                            this.hiedenWarn = true;
+                            this.title = true;
+                            this.$parent.searchKeyWord = '';
+                            this.getLetterLast();
                         }
-                    } else {
-                        this.hiedenWarn = true;
-                        this.title = true;
-                        this.$parent.searchKeyWord = '';
-                        this.getLetterLast();
-                    }
+                    });
                 });
-            });
+            } else {
+                this.$parent.loginHieden = true;
+            }
 
         },
         searchBtn() {
@@ -251,31 +257,22 @@ export default {
                 });
                 return;
             }
-            let user = sessionStorage.getItem('user');
-            if (user) {
-                if (this.searchNubmer < 1) {
-                    this.hiedenWarn = true;
-                    return;
-                }
-                this.getLetterList();
-            } else {
-                this.$parent.loginHieden = true;
+            if (this.searchNubmer < 1) {
+                this.hiedenWarn = true;
+                return;
             }
+            this.getLetterList();
+
         },
         viewsLetter(obj) {
-            let user = sessionStorage.getItem('user');
-            if (user) {
-                if (obj.orderType == "10") {
-                    this.codeType = 'msg';
-                } else {
-                    this.codeType = 'email';
-                }
-                this.codeString = '';
-                this.viewsLetterData = obj;
-                this.codeBox = true;
+            if (obj.orderType !== "10") {
+                this.codeType = 'msg';
             } else {
-                this.$parent.loginHieden = true;
+                this.codeType = 'email';
             }
+            this.codeString = '';
+            this.viewsLetterData = obj;
+            this.codeBox = true;
         },
         isOkview() {
             let opts = this.viewsLetterData;
@@ -320,9 +317,12 @@ export default {
             }, (res) => {
                 this.codeBox = false;
                 this.$http.aop(res, () => {
+                    console.log(res.body.data)
                     if (this.codeType == 'msg') {
-                        this.resultMsgBox = true;
                         this.resultMsgData = res.body.data;
+                        this.resultMsgData.detailId = opts.detailId;
+                        this.resultMsgBox = true;
+                        console.log(this.resultMsgData);
                     } else {
                         this.resultEmailBox = true;
                         this.resultEmailData = res.body.data;
@@ -409,7 +409,7 @@ export default {
     },
     mounted() {
         if (this.$parent.searchKeyWord) {
-            this.searchKeyWord = this.$parent.searchKeyWord; 
+            this.searchKeyWord = this.$parent.searchKeyWord;
             this.getCount(1, {});
         } else {
             this.getLetterLast();

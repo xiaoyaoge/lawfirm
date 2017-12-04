@@ -397,7 +397,6 @@ export default {
             return true;
         },
         login() {
-
             if (this.checkLoginForm(this.form)) {
                 if (!this.verifyCode) {
                     this.$message({
@@ -466,6 +465,8 @@ export default {
                             message: '注册成功',
                             type: 'success'
                         });
+                        this.registerHieden = false;
+                        this.loginHieden = true;
                     });
                 });
             }

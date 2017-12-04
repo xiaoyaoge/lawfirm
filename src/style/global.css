@@ -294,13 +294,15 @@ a {
     line-height: 28px;
     padding: 0 12px;
     display: inline-block;
-    border-radius: 30px
+    border-radius: 30px;
+    cursor: default
 }
 
 .header .top-right-info .login-wrap a:hover,
 .header .top-right-info .login-wrap a.on {
     color: #fff;
-    background-color: #b62a2a
+    background-color: #b62a2a;
+    cursor: default
 }
 
 .pro-nav {

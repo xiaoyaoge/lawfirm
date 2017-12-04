@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import VueResource from 'vue-resource'
-import { Message} from 'element-ui' 
+import { Message } from 'element-ui'
 
-let count = 0; 
+let count = 0;
 
 Vue.component(Message.name, Message);
- 
+
 Vue.use(VueResource);
 
 Vue.http.options.emulateJSON = true;
@@ -26,24 +26,24 @@ Vue.http.aop = function(res, cb) {
     } else if (res.body) {
         switch (res.body.ret) {
             // 正常
-            case 0: 
+            case 0:
                 break;
                 // 未登录
             case 10000:
-                //todo 
+                //todo
                 sessionStorage.removeItem('user');
                 window.location.href = '#/main';
-                Message.warning(res.body.errMsg);
+                Message.warning(res.errMsg);
                 return;
                 // 异常
-            default: 
+            default:
                 Message.warning(res.body.errmsg || '服务器忙');
                 return;
         }
     }
 
     cb && cb();
-    
+
 }
 
 Vue.http.ajaxPost = function(obj, fun) {
@@ -52,7 +52,7 @@ Vue.http.ajaxPost = function(obj, fun) {
         fun && fun(res);
     }, (res) => {
         Vue.http.aop(res);
-         
+
     });
 
 }
