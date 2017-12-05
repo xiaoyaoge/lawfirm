@@ -9,6 +9,9 @@
     border-radius: 0;
     background-color: #4a4039
 }
+.swiper-slide{
+    overflow: hidden;
+}
 
 .swiper-container .swiper-pagination-bullet.swiper-pagination-bullet-active {
     background-color: #b62a2a
