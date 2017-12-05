@@ -49,7 +49,7 @@
                     </dl>
                 </div>
                 <a v-show="more" @click="moreBtn()" class="more-btn">查看更多</a>
-            </div>
+            </div>z
         </div>
         <!-- 函件查询弹窗 -->
         <div v-show="codeBox" class="layer">
@@ -170,7 +170,7 @@ export default {
             pageNo: 0,
             codeBox: false,
             codeType: 'email',
-            code: ['1', ''],
+            code: [],
             codeString: "",
             input: "",
             searchKeyWord: '',
@@ -228,7 +228,7 @@ export default {
                     params: params,
                 }, (res) => {
                     this.$http.aop(res, () => {
-                        console.log(type, item);
+                        // console.log(type, item);
                         if (res.body.data.remainTimes > 1) {
                             if (type === 1) {
                                 this.searchBtn();
@@ -265,7 +265,7 @@ export default {
 
         },
         viewsLetter(obj) {
-            if (obj.orderType !== "10") {
+            if (obj.orderType === "10") {
                 this.codeType = 'msg';
             } else {
                 this.codeType = 'email';
@@ -334,7 +334,7 @@ export default {
             this.pageNo = 0;
             let params = {
                 pageNo: this.pageNo,
-                pageSize: 10
+                pageSize: 100
             };
             if (!validate.checkID(this.searchKeyWord)) {
                 params.detailId = this.searchKeyWord;
@@ -349,6 +349,7 @@ export default {
                     try {
                         this.letterList = res.body.data.orderList || [];
                         this.more = res.body.data.more;
+                        this.searchKeyWord = '';
                     } catch (e) {
                         this.$message({
                             message: '请求有误，请稍后再试',
