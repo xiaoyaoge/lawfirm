@@ -33,11 +33,11 @@ export default {
     data() {
         return {
             lawyer: {
-                avatar: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1511961367854&di=c69f2eb36e48b6b24319fb6d125bfd1f&imgtype=0&src=http%3A%2F%2Fwww.qdcyls.com%2Fuploads%2Fallimg%2F160523%2F092S414E-0.jpg",
-                introduction: "最优秀的律师",
+                avatar: "",
+                introduction: "",
                 lid: 2,
-                lname: "陈修风",
-                title: "中国政法大学硕士,金融圈大伽"
+                lname: "",
+                title: ""
             }
         }
     },
@@ -51,7 +51,7 @@ export default {
                 params: { lid: this.$route.params.id }
             }, (res) => {
                 this.$http.aop(res, () => {
-                    //this.lawyer = res.body.data.brief;
+                    this.lawyer = res.body.data;
 
                 });
 

@@ -30,7 +30,7 @@
                         <tbody>
                             <tr v-for="(item,index) in letterList">
                                 <td></td>
-                                <td>NO. {{item.detailId}}</td>
+                                <td>{{'NO.'+item.detailId}}</td>
                                 <td>{{orderTypeTxt(item.orderType)}}</td>
                                 <td>{{item.receiverName}}</td>
                                 <td>{{item.receiverIdCard}}</td>
@@ -245,7 +245,7 @@ export default {
                     });
                 });
             } else {
-                this.$parent.loginHieden = true;
+                this.$parent.loginShow();
             }
 
         },
@@ -403,17 +403,19 @@ export default {
                         });
                         return;
                     }
-                    this.title = false;
+                    this.title = true;
                 });
             });
         }
     },
     mounted() {
+        //console.log(this.$parent.login());
         if (this.$parent.searchKeyWord) {
             this.searchKeyWord = this.$parent.searchKeyWord;
             this.getCount(1, {});
         } else {
             this.getLetterLast();
+            this.title = true;
         }
 
     }

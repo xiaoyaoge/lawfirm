@@ -1253,7 +1253,8 @@ a.more-btn:hover,
 }
 
 .path-bar a {
-    color: #b8b5b4
+    color: #b8b5b4;
+    cursor: default
 }
 
 .path-bar a:hover,

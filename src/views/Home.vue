@@ -7,7 +7,7 @@
                 </a>
                 <div class="top-nav">
                     <template v-for="(item,index) in $router.options.routes" v-if="item.navmuen">
-                        <a v-for="child in item.children" @click="$router.push(child.path);" :class="$route.path==child.path?'active':''" v-if="!child.hidden">{{child.name}}</a>
+                        <a v-for="child in item.children" @click="$router.push(child.path);" :class="(child.path.indexOf($route.path.split('/')[1]))>-1?'active':''" v-if="!child.hidden">{{child.name}}</a>
                     </template>
                 </div>
                 <div class="fn-right top-right-info">
@@ -564,7 +564,6 @@ export default {
     mounted() {
         this.drag();
         let user = sessionStorage.getItem('user');
-
         if (user) {
             user = JSON.parse(user);
             this.loginType = user.mobile || '';
