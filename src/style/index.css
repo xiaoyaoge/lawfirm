@@ -66,10 +66,7 @@
     text-align: center
 }
 
-.lawyer-wrap .lawyer-list li dl dt img {
-    position: absolute;
-    top: 0;
-    left: -50%;
+.lawyer-wrap .lawyer-list li dl dt img { 
     display: inline-block
 }
 

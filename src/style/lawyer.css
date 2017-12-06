@@ -99,7 +99,8 @@
 .lawyer-detail .lawyer-info .img-box {
     width: 265px;
     height: 265px;
-    box-shadow: 0 0 4px 1px rgba(30, 18, 9, 0.04)
+    box-shadow: 0 0 4px 1px rgba(30, 18, 9, 0.04);
+    overflow: hidden;
 }
 
 .lawyer-detail .lawyer-info dl dt {

@@ -185,6 +185,10 @@ sub {
     bottom: -0.25em
 }
 
+a {
+    cursor: pointer
+}
+
 a:link {
     color: #b62a2a
 }
@@ -294,15 +298,13 @@ a {
     line-height: 28px;
     padding: 0 12px;
     display: inline-block;
-    border-radius: 30px;
-    cursor: default
+    border-radius: 30px
 }
 
 .header .top-right-info .login-wrap a:hover,
 .header .top-right-info .login-wrap a.on {
     color: #fff;
-    background-color: #b62a2a;
-    cursor: default
+    background-color: #b62a2a
 }
 
 .pro-nav {
@@ -805,6 +807,7 @@ body .hide {
 }
 
 .modal-btn {
+    display: block;
     width: 318px;
     height: 48px;
     font-size: 16px;
@@ -817,6 +820,7 @@ body .hide {
 }
 
 .modal-btn:hover {
+    color: #fff;
     background-color: #dd2a2a
 }
 
@@ -987,6 +991,8 @@ body .hide {
     margin-bottom: 60px;
     margin-left: 60px;
     -webkit-transition: all .2s linear;
+    -moz-transition: all .2s linear;
+    -o-transition: all .2s linear;
     transition: all .2s linear;
     background-color: #fafafa;
     box-shadow: 0 0 4px 1px rgba(30, 18, 9, 0.04)
@@ -1024,12 +1030,20 @@ body .hide {
     color: #6c6466
 }
 
+.news-wrap .news-list li .news-bottom a {
+    color: #6c6466
+}
+
 .news-wrap .news-list li:hover {
     top: -5px;
     box-shadow: 0 0 4px 1px rgba(30, 18, 9, 0.08)
 }
 
 .news-wrap .news-list li:hover .news-bottom {
+    color: #b62a2a
+}
+
+.news-wrap .news-list li:hover .news-bottom a {
     color: #b62a2a
 }
 
@@ -1253,8 +1267,7 @@ a.more-btn:hover,
 }
 
 .path-bar a {
-    color: #b8b5b4;
-    cursor: default
+    color: #b8b5b4
 }
 
 .path-bar a:hover,

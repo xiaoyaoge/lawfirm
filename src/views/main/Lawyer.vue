@@ -14,12 +14,17 @@
                     <li v-for="(item,index) in lawyerList">
                         <router-link :to="{path:'/lawyer/'+item.lid}" class="bk-text-button" title="查看详情">
                             <div class="img-box">
-                                <img :src="item.avatar" alt="" width="265" height="265" align="top">
+                                <img :src="item.avatar" alt="" width="265" align="top">
                             </div>
                             <dl>
                                 <dt>{{item.lname}}</dt>
-                                <dd>
-                                    <p v-for="itmes in titleJoin(item.title)">{{itmes}}</p>
+                                <dd v-if="titleJoin(item.title).length">
+                                    <p v-for="(itmes,index) in titleJoin(item.title)" v-if="index<2">{{itmes}}</p>
+                                    <p v-if="titleJoin(item.title).length<2">&nbsp;&nbsp;</p>
+                                </dd>
+                                <dd v-else>
+                                    <p>&nbsp;&nbsp;</p>
+                                    <p>&nbsp;&nbsp;</p>
                                 </dd>
                             </dl>
                         </router-link>
@@ -34,21 +39,21 @@ import '../../style/lawyer.css';
 export default {
     data() {
         return {
-            lawyerList:[], 
+            lawyerList: [],
         }
     },
     methods: {
         titleJoin(data) {
             return data.split(',');
         },
-        getLawyer(){
+        getLawyer() {
             this.$http.ajaxPost({
                 url: 'lawyer/listQuery',
-                params: {pageSize:'7',pageNo:0}
+                params: { pageSizez: '7', pageNo: 0 }
             }, (res) => {
                 this.$http.aop(res, () => {
-                     this.lawyerList = res.body.data.lawyerList||[];
-                }); 
+                    this.lawyerList = res.body.data.lawyerList || [];
+                });
             });
         },
     },

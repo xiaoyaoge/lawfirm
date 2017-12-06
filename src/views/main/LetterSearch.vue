@@ -78,7 +78,7 @@
                             </dd>
                         </dl>
                     </div>
-                    <button class="modal-btn" @click="isOkview()">确定</button>
+                    <a class="modal-btn" @click="isOkview()">确定</a>
                     <div class="query-tip">您今日还有 <span class="c-red">{{verifyNubmer}}</span> 次验证机会</div>
                 </div>
             </div>
@@ -95,8 +95,8 @@
                 </div>
                 <div class="modal-bottom">
                     <div class="btn-content">
-                        <button class="btn red" @click="hiedenWarn=false">确定</button>
-                        <button class="btn white" @click="hiedenWarn=false">取消</button>
+                        <a class="btn red" @click="hiedenWarn=false">确定</a>
+                        <a class="btn white" @click="hiedenWarn=false">取消</a>
                     </div>
                 </div>
             </div>
@@ -115,7 +115,7 @@
                 <div class="modal-bottom">
                     <div class="btn-content">
                         <!-- <button class="btn red" @click="">重新验证</button> -->
-                        <button class="btn white" @click="hiedenVerify=false">取消</button>
+                        <a class="btn white" @click="hiedenVerify=false">取消</a>
                     </div>
                 </div>
             </div>
@@ -130,8 +130,8 @@
                 </div>
                 <div class="modal-bottom">
                     <div class="btn-content">
-                        <button class="btn red">复制</button>
-                        <button class="btn white" @click="resultMsgBox=false">关闭</button>
+                        <!-- <a class="btn red">复制</a> -->
+                        <a  class="btn white" @click="resultMsgBox=false">关闭</a>
                     </div>
                 </div>
             </div>
@@ -148,7 +148,7 @@
                     <div class="btn-content">
                         <!-- <button class="btn red" >下载</button> -->
                         <a :href="resultEmailData.letterUrl" class="btn red">下载</a>
-                        <button class="btn white" @click="resultEmailBox=false">关闭</button>
+                        <a class="btn white" @click="resultEmailBox=false">关闭</a>
                     </div>
                 </div>
             </div>

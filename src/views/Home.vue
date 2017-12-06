@@ -102,7 +102,7 @@
                             <span>按住滑块，拖至最右侧</span>
                             <!-- 最小宽度15%,拖拽宽度从15%开始加,并且在process-bar加class="ing" -->
                             <!-- 完成在process-bar加上class="finished",width为100%,并且将文案改为验证通过 -->
-                            <div class="process-bar ing" id="processTag" style="width: 48px;">
+                            <div class="process-bar" id="processTag" style="width: 48px;">
                                 <span class="process-tag" id="dragbtn"></span>
                                 <span class="process-text" id="processText">按住滑块，拖至最右侧</span>
                             </div>
@@ -115,7 +115,7 @@
                         <div class="form-link-wrap fn-clear">
                             <a class="fn-right" @click="registerShow('setpwd')">忘记密码？</a>
                         </div>
-                        <button class="modal-btn" @click="login()">登录</button>
+                        <a class="modal-btn" @click="login()">登录</a>
                     </form>
                 </div>
                 <div class="modal-bottom">
@@ -171,7 +171,7 @@
                                 <a @click="agreeHieden=true">《仁良注册协议》</a>
                             </p>
                         </div>
-                        <button class="modal-btn" @click="register(registerType)">{{register==register?'注册':'确定'}}</button>
+                        <a class="modal-btn" @click="register(registerType)">{{register==register?'注册':'确定'}}</a>
                     </div>
                 </div>
                 <div class="modal-bottom">
@@ -236,7 +236,7 @@
                     <p>如果您对腾讯采取的QQ号码的限制措施有异议或在使用QQ号码的过程中有其他问题的，均可联系腾讯客户服务部门（http://kf.qq.com），我们会给予您必要的帮助。</p>
                 </div>
                 <div class="modal-content">
-                    <button class="modal-btn" @click="agreeHieden=false">我已阅读</button>
+                    <a class="modal-btn" @click="agreeHieden=false">我已阅读</a>
                 </div>
             </div>
         </div>
@@ -410,14 +410,15 @@ export default {
                     url: 'member/login',
                     params: { mobile: this.form.mobile, password: this.form.password }
                 }, (res) => {
-                    this.$http.aop(res, () => {
-                        this.loginHieden = false;
+                    this.$http.aop(res, () => { 
                         this.loginType = this.form.mobile;
                         sessionStorage.setItem('user', JSON.stringify({ uid: res.body.data, mobile: this.form.mobile }));
                         this.$message({
                             message: '登陆成功',
                             type: 'success'
                         });
+                        console.log(this.loginType);
+                        this.loginHieden = false;
                     });
                 });
             }
@@ -521,6 +522,7 @@ export default {
                         var l = oEvent.clientX - disX;
                         //var t = oEvent.clientY - disY;
                         if (l < 38) {
+                            processTag.className = 'process-bar';
                             l = 0;
                         } else if (l > oDiv2.offsetWidth - oDiv.offsetWidth) {
                             l = oDiv2.offsetWidth - oDiv.offsetWidth;
@@ -528,6 +530,7 @@ export default {
                         if (l > 240) {
                             l = 270;
                         }
+                        processTag.className = 'process-bar ing';
                         //t = 0;
                         // if (t < 50) {
                         //     t = 0;
@@ -539,7 +542,7 @@ export default {
                         processTag.style.width = (l + oDiv.offsetWidth) + 'px';
                         if (l === 270) {
                             _this.verifyCode = true;
-                            processTag.className = 'process-bar ing finished';
+                            processTag.className = 'process-bar finished';
                             leftWidth = l;
                             processText.innerHTML = '验证通过';
                             return;
@@ -564,7 +567,7 @@ export default {
     mounted() {
         this.drag();
         let user = sessionStorage.getItem('user');
-        if (user) {
+        if (user) { 
             user = JSON.parse(user);
             this.loginType = user.mobile || '';
         }
