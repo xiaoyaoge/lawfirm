@@ -59,16 +59,7 @@ module.exports = (options = {}) => ({
     devtool: "source-map",
     plugins: [
         new WebpackMd5Hash(),
-        new webpack.HashedModuleIdsPlugin(),
-        new CompressionWebpackPlugin({ //gzip 压缩
-            asset: '[path].gz[query]',
-            algorithm: 'gzip',
-            test: new RegExp(
-                '\\.(js|css)$' //压缩 js 与 css
-            ),
-            threshold: 10240,
-            minRatio: 0.8
-        }),
+        new webpack.HashedModuleIdsPlugin(), 
         new HtmlWebpackPlugin({
             template: 'src/index.html',
             inject: true, // 自动注入
@@ -83,6 +74,15 @@ module.exports = (options = {}) => ({
         new ExtractTextPlugin({ filename: 'style/css/[name].[contenthash:8].css' }),
         new webpack.optimize.CommonsChunkPlugin({
             names: ['vendor', 'manifest']
+        }),
+        new CompressionWebpackPlugin({ //gzip 压缩
+            asset: '[path].gz[query]',
+            algorithm: 'gzip',
+            test: new RegExp(
+                '\\.(js|css)$' //压缩 js 与 css
+            ),
+            threshold: 10240,
+            minRatio: 0.8
         }),
         new InlineManifestWebpackPlugin({
             name: 'webpackManifest'

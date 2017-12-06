@@ -245,7 +245,7 @@
 <script>
 import '../style/global.css';
 import validate from '../validate'
-
+import md5 from 'js-md5'
 export default {
     data() {
         return {
@@ -353,9 +353,20 @@ export default {
             return flag;
         },
         getCode(mobile) {
+            let params = {
+                mobile: this.registerForm.mobile,
+                scene: 1
+            }; 
+            if (this.registerType == 'register') {
+                params.scene = 1;
+            } else if (this.registerType == 'setpwd') {
+                params.scene = 2;
+            } else {
+                params.scene = 3;
+            }
             this.$http.ajaxPost({
                 url: 'member/sendVerifyCode',
-                params: { mobile: this.registerForm.mobile, scene: 1 } //scene： 1/注册 ，2/找回密码 ，3/登录
+                params: params //scene： 1/注册 ，2/找回密码 ，3/登录
             }, (res) => {
                 this.$http.aop(res, () => {
                     this.$message({
@@ -408,16 +419,15 @@ export default {
                 }
                 this.$http.ajaxPost({
                     url: 'member/login',
-                    params: { mobile: this.form.mobile, password: this.form.password }
+                    params: { mobile: this.form.mobile, password: md5(this.form.password) }
                 }, (res) => {
-                    this.$http.aop(res, () => { 
+                    this.$http.aop(res, () => {
                         this.loginType = this.form.mobile;
                         sessionStorage.setItem('user', JSON.stringify({ uid: res.body.data, mobile: this.form.mobile }));
                         this.$message({
                             message: '登陆成功',
                             type: 'success'
                         });
-                        console.log(this.loginType);
                         this.loginHieden = false;
                     });
                 });
@@ -451,14 +461,14 @@ export default {
                 verifyCode: this.registerForm.verifyCode
             };
             if (type == 'register') {
-                params.password = this.registerForm.password;
+                params.password = md5(this.registerForm.password);
             } else {
-                params.newPassword = this.registerForm.password;
+                params.newPassword = md5(this.registerForm.password);
             }
             if (this.checkForm(this.registerForm)) {
                 this.$http.ajaxPost({
                     url: 'member/register',
-                    params: { mobile: this.registerForm.mobile, password: this.registerForm.password, verifyCode: this.registerForm.verifyCode }
+                    params: params
                 }, (res) => {
                     this.$http.aop(res, () => {
                         this.msgError = '';
@@ -567,7 +577,7 @@ export default {
     mounted() {
         this.drag();
         let user = sessionStorage.getItem('user');
-        if (user) { 
+        if (user) {
             user = JSON.parse(user);
             this.loginType = user.mobile || '';
         }
