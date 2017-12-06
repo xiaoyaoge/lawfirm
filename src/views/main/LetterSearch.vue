@@ -49,7 +49,7 @@
                     </dl>
                 </div>
                 <a v-show="more" @click="moreBtn()" class="more-btn">查看更多</a>
-            </div>z
+            </div>
         </div>
         <!-- 函件查询弹窗 -->
         <div v-show="codeBox" class="layer">

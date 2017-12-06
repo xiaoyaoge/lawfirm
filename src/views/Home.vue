@@ -52,9 +52,9 @@
                                 <dl>
                                     <dt>友情链接</dt>
                                     <dd>
-                                        <a href="###" target="_blank">法法社</a>
-                                        <a href="###" target="_blank">分期乐</a>
-                                        <a href="###" target="_blank">目目学院</a>
+                                        <a href="http://www.fafashe.com" target="_blank">法法社</a>
+                                        <a href="http://www.fenqile.com" target="_blank">分期乐</a>
+                                        <a href="http://www.twoeyes.cn" target="_blank">目目学院</a>
                                     </dd>
                                 </dl>
                             </li>
@@ -62,8 +62,8 @@
                                 <dl>
                                     <dt>最近新闻</dt>
                                     <dd>
-                                        <a href="###" target="_blank">仁良业绩</a>
-                                        <a href="###" target="_blank">业内资讯</a>
+                                        <a href="#/news">仁良业绩</a>
+                                        <a href="#/news">业内资讯</a>
                                     </dd>
                                 </dl>
                             </li>
