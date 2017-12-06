@@ -13,12 +13,12 @@
             <div class="container clear">
                 <div class="lawyer-info fn-left">
                     <div class="img-box">
-                        <img :src="lawyer.avatar" :alt="lawyer.lName" width="265" height="265" align="top">
+                        <img :src="lawyer.avatar" :alt="lawyer.lName" width="265" align="top">
                     </div>
                     <dl>
                         <dt>{{lawyer.lname}}</dt>
                         <dd>
-                            <p v-for=" item in titleJoin(lawyer.title)">{{item}}</p>
+                            <p v-for=" (item ,index) in titleJoin(lawyer.title)" >{{item}}</p>
                         </dd>
                     </dl>
                 </div>

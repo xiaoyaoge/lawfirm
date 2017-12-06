@@ -3,7 +3,7 @@
         <div id="main_slider">
             <swiper :options="swiperOption" ref="mySwiper">
                 <!-- slides -->
-                <swiper-slide v-for="(item,index) in bannerList" style="background: #1e1209;">
+                <swiper-slide v-for="(item,index) in bannerList" :key="index" style="background: #1e1209;">
                     <a :href="item.jumpUrl"><img :src="item.imageUrl"></a>
                 </swiper-slide>
                 <div class="swiper-pagination" slot="pagination"></div>

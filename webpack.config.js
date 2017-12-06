@@ -27,9 +27,9 @@ module.exports = (options = {}) => ({
             test: /\.js$/,
             use: ['babel-loader'],
             exclude: /node_modules/
-        },{
-           test: /\.css$/,
-            loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use:['css-loader','postcss-loader']})
+        }, {
+            test: /\.css$/,
+            loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: ['css-loader', 'postcss-loader'] })
         }, {
             test: /\.scss$/,
             loader: "style!css!sass"
@@ -41,7 +41,7 @@ module.exports = (options = {}) => ({
             use: [{
                 loader: 'url-loader',
                 options: {
-                    limit: 5000,
+                    limit: 1000,
                     name: 'style/img/[name].[hash:8].[ext]'
                 }
             }]
@@ -50,7 +50,7 @@ module.exports = (options = {}) => ({
             use: [{
                 loader: 'url-loader',
                 options: {
-                    limit: 10000,
+                    limit: 1000,
                     name: 'style/font/[name].[hash:8].[ext]'
                 }
             }]
@@ -59,7 +59,22 @@ module.exports = (options = {}) => ({
     devtool: "source-map",
     plugins: [
         new WebpackMd5Hash(),
-        new webpack.HashedModuleIdsPlugin(),
+        new webpack.HashedModuleIdsPlugin(), 
+        new HtmlWebpackPlugin({
+            template: 'src/index.html',
+            inject: true, // 自动注入
+            minify: {
+                removeComments: true, //去注释
+                collapseWhitespace: true, //压缩空格
+                removeAttributeQuotes: true //去除属性引用 
+            },
+            //必须通过上面的 CommonsChunkPlugin 的依赖关系自动添加 js，css 等
+            chunksSortMode: 'dependency'
+        }),
+        new ExtractTextPlugin({ filename: 'style/css/[name].[contenthash:8].css' }),
+        new webpack.optimize.CommonsChunkPlugin({
+            names: ['vendor', 'manifest']
+        }),
         new CompressionWebpackPlugin({ //gzip 压缩
             asset: '[path].gz[query]',
             algorithm: 'gzip',
@@ -68,21 +83,6 @@ module.exports = (options = {}) => ({
             ),
             threshold: 10240,
             minRatio: 0.8
-        }),
-        new HtmlWebpackPlugin({
-            template: 'src/index.html',
-            inject: true, // 自动注入
-            minify: {
-                removeComments: true, //去注释
-                collapseWhitespace: true, //压缩空格
-                removeAttributeQuotes: true //去除属性引用
-            },
-            //必须通过上面的 CommonsChunkPlugin 的依赖关系自动添加 js，css 等
-            chunksSortMode: 'dependency'
-        }),
-        new ExtractTextPlugin({ filename: 'style/css/[name].[contenthash:8].css' }),
-        new webpack.optimize.CommonsChunkPlugin({
-            names: ['vendor', 'manifest']
         }),
         new InlineManifestWebpackPlugin({
             name: 'webpackManifest'
@@ -95,7 +95,7 @@ module.exports = (options = {}) => ({
     },
     devServer: {
         host: '127.0.0.1',
-        port: 8022,
+        port: 8018,
         proxy: {
             '/api/': {
                 target: '127.0.0.1',
