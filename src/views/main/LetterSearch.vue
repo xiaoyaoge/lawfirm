@@ -273,6 +273,7 @@ export default {
             this.codeString = '';
             this.viewsLetterData = obj;
             this.codeBox = true;
+            this.$refs.VueInputCode.deleteInput();
         },
         isOkview() {
             let opts = this.viewsLetterData;
