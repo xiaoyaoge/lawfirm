@@ -62,7 +62,7 @@
                         <dl>
                             <dt>身份证号码</dt>
                             <dd>
-                                <vue-input-code span-size="19px" type="text" :number="18" height="38px" span-color="#b62a2a" input-color="#b62a2a" input-size="21px" :code="code" :get-input="getInput" :success="success"></vue-input-code>
+                                <verify-input-code ref="verifyInputCode" s-size="19px" type="text" :number="18" height="38px" s-color="#343434" input-color="#b62a2a" input-size="21px" :code="code" :get-input="getInput" :success="success"></verify-input-code>
                             </dd>
                         </dl>
                         <dl v-if="codeType=='email'">
@@ -78,7 +78,7 @@
                             </dd>
                         </dl>
                     </div>
-                    <a class="modal-btn" @click="isOkview()">确定</a>
+                    <a class="modal-btn" @click="isOkview()" style="width:auto;">确定</a>
                     <div class="query-tip">您今日还有 <span class="c-red">{{verifyNubmer}}</span> 次验证机会</div>
                 </div>
             </div>
@@ -131,7 +131,7 @@
                 <div class="modal-bottom">
                     <div class="btn-content">
                         <!-- <a class="btn red">复制</a> -->
-                        <a  class="btn white" @click="resultMsgBox=false">关闭</a>
+                        <a class="btn white" @click="resultMsgBox=false">关闭</a>
                     </div>
                 </div>
             </div>
@@ -158,11 +158,11 @@
 <script>
 import '../../style/letter.css';
 import validate from '../../validate'
-import VueInputCode from 'vue-input-code'
+import VerifyInputCode from 'verify-input-code'
 import moment from 'moment'
 export default {
     components: {
-        VueInputCode
+        VerifyInputCode
     },
     data() {
         return {
@@ -265,7 +265,7 @@ export default {
 
         },
         viewsLetter(obj) {
-            if (obj.orderType === "10") {
+            if (obj.orderType === 10) {
                 this.codeType = 'msg';
             } else {
                 this.codeType = 'email';
@@ -273,7 +273,6 @@ export default {
             this.codeString = '';
             this.viewsLetterData = obj;
             this.codeBox = true;
-            this.$refs.VueInputCode.deleteInput();
         },
         isOkview() {
             let opts = this.viewsLetterData;
@@ -318,16 +317,18 @@ export default {
             }, (res) => {
                 this.codeBox = false;
                 this.$http.aop(res, () => {
-                    console.log(res.body.data)
+                     
                     if (this.codeType == 'msg') {
                         this.resultMsgData = res.body.data;
                         this.resultMsgData.detailId = opts.detailId;
                         this.resultMsgBox = true;
-                        console.log(this.resultMsgData);
+                        this.searchKeyMobile = '';
                     } else {
                         this.resultEmailBox = true;
                         this.resultEmailData = res.body.data;
+                        this.searchKeyEmail = '';
                     }
+                    this.$refs.verifyInputCode.initInput();
                 });
             });
         },
