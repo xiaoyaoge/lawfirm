@@ -4,7 +4,8 @@
             <swiper :options="swiperOption" ref="mySwiper">
                 <!-- slides -->
                 <swiper-slide v-for="(item,index) in bannerList" :key="index" style="background: #1e1209;">
-                    <a :href="item.jumpUrl"><img :src="item.imageUrl"></a>
+                    <a v-if="item.jumpUrl" :href="item.jumpUrl"><img :src="item.imageUrl"></a>
+                    <img v-else :src="item.imageUrl">
                 </swiper-slide>
                 <div class="swiper-pagination" slot="pagination"></div>
             </swiper>
