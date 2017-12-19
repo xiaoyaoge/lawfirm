@@ -12,10 +12,10 @@
         <div class="news-article">
             <div class="container">
                 <div class="news-title">
-                    <h2>{{news.title}}</h2>
-                    <div class="news-date">{{dateTime(news.createTime,'YYYY-MM-DD')}}</div>
+                    <h2>{{news.brief.title}}</h2>
+                    <div class="news-date">{{dateTime(news.brief.createTime,'YYYY-MM-DD')}}</div>
                 </div>
-                <div class="news-section">{{news.brief}}</div>
+                <div class="news-section" v-html="news.detail.content"></div>
             </div>
         </div>
     </article>
@@ -26,7 +26,10 @@ import moment from 'moment'
 export default {
     data() {
         return {
-            news: {}
+            news: {
+                brief: {},
+                detail: {}
+            }
         }
     },
     methods: {
@@ -39,8 +42,8 @@ export default {
                 params: { newsId: this.$route.params.id }
             }, (res) => {
                 this.$http.aop(res, () => {
-                    this.news = res.body.data.brief;
-
+                    this.news.brief = res.body.data.brief;
+                    this.news.detail = res.body.data.detail;
                 });
 
             });

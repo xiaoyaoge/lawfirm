@@ -13,7 +13,7 @@
             <div class="container clear">
                 <div class="lawyer-info fn-left">
                     <div class="img-box">
-                        <img :src="lawyer.avatar" :alt="lawyer.lName" width="265" align="top">
+                        <img :src="lawyer.avatar+'?x-oss-process=image/resize,w_265/auto-orient,1/quality,q_90'" :alt="lawyer.lName" width="265" align="top">
                     </div>
                     <dl>
                         <dt>{{lawyer.lname}}</dt>
@@ -22,7 +22,7 @@
                         </dd>
                     </dl>
                 </div>
-                <div class="lawyer-intro">{{lawyer.introduction}}</div>
+                <div class="lawyer-intro" v-html="lawyer.introduction"></div>
             </div>
         </div>
     </article>

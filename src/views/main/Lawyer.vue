@@ -14,7 +14,7 @@
                     <li v-for="(item,index) in lawyerList">
                         <router-link :to="{path:'/lawyer/'+item.lid}" class="bk-text-button" title="查看详情">
                             <div class="img-box">
-                                <img :src="item.avatar" alt="" width="265" align="top">
+                                <img :src="item.avatar+'?x-oss-process=image/resize,w_265/auto-orient,1/quality,q_90'" :alt="item.lname" width="265" align="top">
                             </div>
                             <dl>
                                 <dt>{{item.lname}}</dt>

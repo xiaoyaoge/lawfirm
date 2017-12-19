@@ -12,6 +12,15 @@
 .swiper-slide{
     overflow: hidden;
 }
+.swiper-slide a{
+    display: block;
+    height: 468px;
+    background-repeat: no-repeat;
+}
+.swiper-slide  img{
+    max-width: 100%;
+
+}
 
 .swiper-container .swiper-pagination-bullet.swiper-pagination-bullet-active {
     background-color: #b62a2a

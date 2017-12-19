@@ -4,7 +4,9 @@
             <swiper :options="swiperOption" ref="mySwiper">
                 <!-- slides -->
                 <swiper-slide v-for="(item,index) in bannerList" :key="index" style="background: #1e1209;">
-                    <a v-if="item.jumpUrl" :href="item.jumpUrl"><img :src="item.imageUrl"></a>
+                    <a v-if="item.jumpUrl" :href="item.jumpUrl" :style="[{background:'url('+item.imageUrl+') center center no-repeat',backgroundSize:'cover'}]">
+                        <!-- <img :src="item.imageUrl"> -->
+                    </a>
                     <img v-else :src="item.imageUrl">
                 </swiper-slide>
                 <div class="swiper-pagination" slot="pagination"></div>
@@ -59,7 +61,7 @@
                     <li v-for="(item,index) in lawyerList">
                         <dl>
                             <dt>
-                                <img :src="item.avatar" alt="" height="336" align="top">
+                                <img :src="item.avatar+'?x-oss-process=image/resize,h_336/auto-orient,1/quality,q_90'" alt="" height="336" align="top">
                             </dt>
                             <dd>{{item.lname}}</dd>
                         </dl>
