@@ -150,3 +150,6 @@
 .lawyer-detail .lawyer-intro p {
     margin-bottom: 35px
 }
+.lawyer-detail .lawyer-intro p img{
+    max-width: 100%;
+}
