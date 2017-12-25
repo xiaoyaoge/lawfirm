@@ -1,6 +1,6 @@
 <template>
     <section>
-        <div class="banner" style="background: #1e1209;"></div>
+        <div class="banner" style="background: url(&quot;http://fafashe.oss-cn-shenzhen.aliyuncs.com/images/e1a43fd114485f19c6eb36f6a9ee5cd1&quot;) center center / cover no-repeat;"></div>
         <div class="news-wrap">
             <div class="container">
                 <h1 class="common-title">新闻动态</h1>

@@ -10,7 +10,7 @@ Vue.use(VueResource);
 
 Vue.http.options.emulateJSON = true;
 
-Vue.http.options.root = 'http://law.fafashe.com/cgi/';
+Vue.http.options.root = 'http://www.renlianglawyer.com/cgi/';
 
 
 Vue.http.interceptors.push((req, next) => {
