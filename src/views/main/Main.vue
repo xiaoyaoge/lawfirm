@@ -148,7 +148,7 @@ export default {
         getNews() {
             this.$http.ajaxPost({
                 url: 'news/listQuery',
-                params: { category: 2, pageNo: 0, pageSize: 3 } //category 1:仁良动态，2:业内资讯
+                params: { category: 0, pageNo: 0, pageSize: 3 } //category 1:仁良动态，2:业内资讯
             }, (res) => {
                 this.$http.aop(res, () => {
                     this.nwesList = res.body.data.newsList || [];
