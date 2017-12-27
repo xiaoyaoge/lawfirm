@@ -13,7 +13,7 @@
                 <div class="fn-right top-right-info">
                     <div class="tel-info fn-left">
                         <i class="icon tel"></i>
-                        <span>0700-5241245</span>
+                        <span>021-51801000</span>
                         <span class="line"></span>
                     </div>
                     <div v-if="loginType==''" class="login-wrap fn-right">
