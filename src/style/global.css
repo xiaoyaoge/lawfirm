@@ -856,7 +856,8 @@ body .hide {
 }
 
 .protocol-modal .modal-text h4 {
-    margin-bottom: 30px
+    margin-top: 20px;
+    margin-bottom: 10px
 }
 
 .query-content {

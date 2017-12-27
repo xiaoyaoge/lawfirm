@@ -12,6 +12,15 @@
                 <div class="swiper-pagination" slot="pagination"></div>
             </swiper>
         </div>
+         <div class="letter-search">
+            <div class="container">
+                <div class="search-form">
+                    <label for="">函件查询</label>
+                    <input type="text" v-model="keyWord" placeholder="请输入身份证或者函件编号" />
+                    <button @click="searchBtns()">搜索</button>
+                </div>
+            </div>
+        </div>
         <div class="news-wrap">
             <div class="container">
                 <h1 class="common-title">最近新闻</h1>
@@ -43,15 +52,6 @@
                 </ul>
                 <router-link :to="{path:'/news'}" class="more-btn" title="查看更多">查看更多</router-link>
                 <!-- <a href="###" class="more-btn">查看更多</a> -->
-            </div>
-        </div>
-        <div class="letter-search">
-            <div class="container">
-                <div class="search-form">
-                    <label for="">函件查询</label>
-                    <input type="text" v-model="keyWord" placeholder="请输入身份证或者函件编号" />
-                    <button @click="searchBtns()">搜索</button>
-                </div>
             </div>
         </div>
         <div class="lawyer-wrap">
