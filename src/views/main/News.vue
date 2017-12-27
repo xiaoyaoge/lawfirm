@@ -5,8 +5,8 @@
             <div class="container">
                 <h1 class="common-title">新闻动态</h1>
                 <div class="news-type">
-                    <a :class="onType?'on':''" @click="typeNews(1)">仁良业绩</a>
-                    <a :class="!onType?'on':''" @click="typeNews(2)">业内资讯</a>
+                    <a :class="onType?'on':''" @click="typeNews(2)">业内资讯</a>
+                    <a :class="!onType?'on':''" @click="typeNews(1)">仁良业绩</a>
                 </div>
                 <ul class="news-list clear">
                     <li v-for="(item,index) in newsList">
@@ -46,7 +46,7 @@ export default {
     data() {
         return {
             onType: true,
-            category: 1,
+            category: 2,
             newsFlag: 1,
             pageNo: 0,
             more: 0,
@@ -64,7 +64,7 @@ export default {
             this.pageNo = 0;
             this.$http.ajaxPost({
                 url: 'news/listQuery',
-                params: { category: this.category, pageNo: this.pageNo, pageSize: 9 }
+                params: { category: this.category, pageNo: this.pageNo, pageSize: 6 }
                 //category 1:仁良动态，2:业内资讯
             }, (res) => {
                 this.$http.aop(res, () => {
@@ -79,7 +79,7 @@ export default {
             this.pageNo++;
             this.$http.ajaxPost({
                 url: 'news/listQuery',
-                params: { category: this.category, pageNo: this.pageNo, pageSize: 9 }
+                params: { category: this.category, pageNo: this.pageNo, pageSize: 6 }
                 //category 1:仁良动态，2:业内资讯
             }, (res) => {
                 this.$http.aop(res, () => {
@@ -93,7 +93,7 @@ export default {
         },
         typeNews(val) {
             this.category = val;
-            if (val === 1) {
+            if (val === 2) {
                 this.onType = true;
                 this.getNews();
             } else {
