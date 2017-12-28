@@ -15,15 +15,14 @@
                     <p class="name">上海市静安区恒丰路218号现代交通商务大厦1605</p>
                 </div>
                 <div class="map-wrap">
-                    <img src="../../style/img/map.png" alt="" width="1180">
+                    <img src="../../style/img/map.png" alt="上海市静安区恒丰路218号现代交通商务大厦1605">
                 </div>
             </div>
         </div>
     </article>
 </template>
 <script>
-import '../../style/about.css';
-
+import '../../style/about.css'
 export default {
     data() {
         return {}

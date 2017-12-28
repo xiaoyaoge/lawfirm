@@ -18,8 +18,14 @@
     margin-bottom: 26px
 }
 .about-wrap .about-text p.name {
+    text-align: center;
     margin-bottom: 0px
 }
 .about-wrap .map-wrap {
-    padding-top: 10px
+    padding-top: 10px;
+    text-align: center
+}
+.about-wrap .map-wrap img{
+    display: inline-block;
+    max-width: 100%
 }
