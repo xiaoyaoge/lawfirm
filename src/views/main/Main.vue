@@ -54,7 +54,7 @@
                 <!-- <a href="###" class="more-btn">查看更多</a> -->
             </div>
         </div>
-        <div class="lawyer-wrap">
+        <div v-if="false" class="lawyer-wrap">
             <div class="container">
                 <h1 class="common-title">律师团队</h1>
                 <ul class="lawyer-list clear">
@@ -70,7 +70,7 @@
                 <router-link :to="{path:'/lawyer'}" class="more-btn" title="查看更多">查看更多</router-link>
             </div>
         </div>
-        <div class="co-wrap hide">
+        <div v-if="false" class="co-wrap hide">
             <div class="container">
                 <h1 class="common-title">合作组织</h1>
                 <ul class="co-list clear">
@@ -95,13 +95,7 @@ export default {
             bannerList: [],
             nwesList: [],
             lawyerList: [],
-            coList: [
-                { linkUrl: '12334', lName: '郭梦祺', imageUrl: '1.jpg', title: '', id: '1' },
-                { linkUrl: '12334', lName: '郭梦祺', imageUrl: '2.jpg', title: '', id: '2' },
-                { linkUrl: '12334', lName: '郭梦祺', imageUrl: '3.jpg', title: '', id: '3' },
-                { linkUrl: '12334', lName: '郭梦祺', imageUrl: '4.jpg', title: '', id: '4' },
-                { linkUrl: '12334', lName: '郭梦祺', imageUrl: '5.jpg', title: '', id: '5' }
-            ],
+            coList: [],
             swiperOption: {
                 direction: 'horizontal',
                 notNextTick: true,
@@ -169,7 +163,7 @@ export default {
         initGetData() {
             this.initLoading = true;
             this.getBanner();
-            this.getLawyer();
+            //this.getLawyer();
             this.getNews();
             this.initLoading = false;
         },
