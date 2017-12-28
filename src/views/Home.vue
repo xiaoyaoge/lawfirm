@@ -70,7 +70,7 @@
                         </ul>
                     </div>
                     <div class="fn-right">
-                        <img src="../style/img/qr.png" width="148" height="148">
+                        <img src="../style/img/qr.jpeg" alt="仁良律所二维码" width="168" height="168">
                     </div>
                 </div>
             </div>
