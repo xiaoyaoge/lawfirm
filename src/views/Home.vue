@@ -534,6 +534,11 @@ export default {
             }
         },
         loginShow() {
+            this.form = {
+                mobile: '',
+                password: ''
+
+            };
             this.loginHieden = true;
         },
         registerShow(type) {

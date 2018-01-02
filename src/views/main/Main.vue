@@ -17,7 +17,7 @@
                 <div class="search-form">
                     <label for="">函件查询</label>
                     <input type="text" v-model="keyWord" placeholder="请输入身份证或者函件编号" />
-                    <button @click="searchBtns()">搜索</button>
+                    <a class="btn" @click="searchBtns()">搜索</a>
                 </div>
             </div>
         </div>

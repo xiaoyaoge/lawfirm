@@ -1,10 +1,10 @@
 <template>
-    <div class="article">
+    <div class="article" v-loading="pageLoading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.8)">
         <div class="search-box">
             <div class="container">
                 <div class="search-form">
                     <input type="text" v-model="searchKeyWord" placeholder="请输入身份证或者函件编号" value="" />
-                    <button @click="getCount(1,{})">搜索</button>
+                    <a class="btn" @click="getCount(1,{})">搜索</a>
                 </div>
                 <div class="search-tip">需登录后才可以查询律所所发出的短信或者电子函件</div>
             </div>
@@ -166,6 +166,7 @@ export default {
     },
     data() {
         return {
+            pageLoading: false,
             title: true,
             pageNo: 0,
             codeBox: false,
@@ -222,13 +223,14 @@ export default {
                 type: type
             };
             let user = sessionStorage.getItem('user');
+
             if (user) {
+                this.pageLoading = true;
                 this.$http.ajaxPost({
                     url: 'order/getTimes', //搜索type为1，验证为2
                     params: params,
                 }, (res) => {
                     this.$http.aop(res, () => {
-                        // console.log(type, item);
                         if (res.body.data.remainTimes > 1) {
                             if (type === 1) {
                                 this.searchBtn();
@@ -242,6 +244,7 @@ export default {
                             this.$parent.searchKeyWord = '';
                             this.getLetterLast();
                         }
+                        this.pageLoading = false;
                     });
                 });
             } else {
@@ -310,14 +313,13 @@ export default {
                     return;
                 }
             }
-
+            this.pageLoading = true;
             this.$http.ajaxPost({
                 url: 'order/verify',
                 params: params,
             }, (res) => {
                 this.codeBox = false;
                 this.$http.aop(res, () => {
-                     
                     if (this.codeType == 'msg') {
                         this.resultMsgData = res.body.data;
                         this.resultMsgData.detailId = opts.detailId;
@@ -328,8 +330,10 @@ export default {
                         this.resultEmailData = res.body.data;
                         this.searchKeyEmail = '';
                     }
-                    this.$refs.verifyInputCode.initInput();
                 });
+                this.$refs.verifyInputCode.initInput();
+                this.searchKeyEmail = '';
+                this.pageLoading = false;
             });
         },
         getLetterList() {
@@ -343,6 +347,7 @@ export default {
             } else {
                 params.idCard = this.searchKeyWord;
             }
+            this.pageLoading = true;
             this.$http.ajaxPost({
                 url: 'order/listQuery',
                 params: params,
@@ -361,6 +366,7 @@ export default {
                     }
                     this.title = false;
                 });
+                this.pageLoading = false;
             });
         },
         moreBtn() {
@@ -370,6 +376,7 @@ export default {
                 pageNo: this.pageNo,
                 pageSize: 10
             };
+            this.pageLoading = true;
             this.$http.ajaxPost({
                 url: 'order/lastQuery',
                 params: params,
@@ -382,6 +389,7 @@ export default {
 
                     this.more = res.body.data.more;
                 });
+                this.pageLoading = false;
             });
         },
         getLetterLast() {
@@ -390,6 +398,7 @@ export default {
                 pageNo: this.pageNo,
                 pageSize: 10
             };
+            this.pageLoading = true;
             this.$http.ajaxPost({
                 url: 'order/lastQuery',
                 params: params,
@@ -406,7 +415,9 @@ export default {
                         return;
                     }
                     this.title = true;
+
                 });
+                this.pageLoading = false;
             });
         }
     },
