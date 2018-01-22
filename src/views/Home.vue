@@ -41,9 +41,9 @@
                                 <dl>
                                     <dt>关于我们</dt>
                                     <dd>
-                                        <a href="###" target="_blank">概览</a>
-                                        <a href="###" target="_blank">工作地点</a>
-                                        <a href="###" target="_blank">团队介绍</a>
+                                        <a href="#/main" target="_blank">概览</a>
+                                        <a href="#/about" target="_blank">工作地点</a>
+                                        <a href="#/about" target="_blank">团队介绍</a>
                                         <a href="###" target="_blank">团队法律声明介绍</a>
                                     </dd>
                                 </dl>
@@ -53,8 +53,6 @@
                                     <dt>友情链接</dt>
                                     <dd>
                                         <a href="http://www.fafashe.com" target="_blank">法法社</a>
-                                        <a href="http://www.fenqile.com" target="_blank">分期乐</a>
-                                        <a href="http://www.twoeyes.cn" target="_blank">目目学院</a>
                                     </dd>
                                 </dl>
                             </li>
@@ -75,7 +73,10 @@
                 </div>
             </div>
             <div class="copyright">
-                © Renliang 2016 京ICP备06002628号-1
+                © Renliang 2018 沪ICP备17011773号 
+                <a href="http://www.miitbeian.gov.cn">
+                    <img src="../style/img/govIcon.gif" style="display:inline-block;width: 20px; vertical-align: middle">
+                </a>
             </div>
         </div>
         <!-- 登录弹窗 -->
