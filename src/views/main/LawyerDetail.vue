@@ -22,7 +22,7 @@
                         </dd>
                     </dl>
                 </div>
-                <div class="lawyer-intro" v-html="lawyer.introduction"></div>
+                <div class="lawyer-intro ql-editor" v-html="lawyer.introduction"></div>
             </div>
         </div>
     </article>

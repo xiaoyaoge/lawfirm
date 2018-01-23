@@ -15,7 +15,7 @@
                     <h2>{{news.brief.title}}</h2>
                     <div class="news-date">{{dateTime(news.brief.createTime,'YYYY-MM-DD')}}</div>
                 </div>
-                <div class="news-section" v-html="news.detail.content"></div>
+                <div class="news-section ql-editor" v-html="news.detail.content"></div>
             </div>
         </div>
     </article>
